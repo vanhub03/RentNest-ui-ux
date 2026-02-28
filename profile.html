@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ Sơ Của Tôi - RentNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <style>
+        .profile-sidebar {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .profile-header {
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 4px solid var(--bg-alt);
+            position: relative;
+            display: inline-block;
+        }
+
+        .edit-avatar-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s;
+        }
+
+        .edit-avatar-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-pills {
+            list-style: none;
+            padding: 0.5rem 0;
+            margin: 0;
+        }
+
+        .nav-pills li a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .nav-pills li a:hover {
+            background: var(--bg-alt);
+        }
+
+        .nav-pills li a.active {
+            background: rgba(15, 82, 186, 0.1);
+            color: var(--primary);
+            font-weight: 500;
+            border-left: 3px solid var(--primary);
+        }
+    </style>
+</head>
+
+<body class="bg-alt">
+
+    <header class="navbar border-bottom">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand"><i class="fas fa-home"></i> RentNest</a>
+            <div class="d-flex align-items-center gap-3">
+                <a href="rooms.html" class="nav-link"><i class="fas fa-search"></i> Thuê phòng</a>
+                <div class="dropdown" style="position: relative; cursor: pointer;">
+                    <img src="https://ui-avatars.com/api/?name=User&background=0F52BA&color=fff" alt="User"
+                        style="width: 35px; height: 35px; border-radius: 50%;">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-5">
+        <div class="container">
+            <div class="d-grid gap-4" style="grid-template-columns: 280px 1fr;">
+
+                <aside>
+                    <div class="profile-sidebar">
+                        <div class="profile-header">
+                            <div class="profile-avatar">
+                                <img src="https://ui-avatars.com/api/?name=User&background=0F52BA&color=fff&size=100"
+                                    alt="Avatar">
+                                <div class="edit-avatar-btn" title="Đổi ảnh đại diện">
+                                    <i class="fas fa-camera text-sm"></i>
+                                </div>
+                            </div>
+                            <h3 class="font-bold mb-1" style="font-size: 1.1rem;">Nguyễn Văn A</h3>
+                            <span class="badge badge-success">Khách Thuê Phòng</span>
+                        </div>
+                        <ul class="nav-pills">
+                            <li><a href="profile.html" class="active"><i class="fas fa-user mr-2 text-muted"
+                                        style="width: 25px;"></i> Thông tin cá nhân</a></li>
+                            <li><a href="my-rooms.html"><i class="fas fa-key mr-2 text-muted" style="width: 25px;"></i>
+                                    Phòng đang thuê</a></li>
+                            <li><a href="my-invoices.html"><i class="fas fa-file-invoice-dollar mr-2 text-muted"
+                                        style="width: 25px;"></i> Hóa đơn của tôi</a></li>
+                            <li><a href="login.html" class="text-danger"><i class="fas fa-sign-out-alt mr-2"
+                                        style="width: 25px;"></i> Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <div class="d-flex flex-column gap-4">
+                    <div class="card p-4">
+                        <h2 class="font-bold mb-4 border-bottom border-color pb-2" style="font-size: 1.25rem;">Thông tin
+                            cá nhân</h2>
+                        <form class="needs-validation">
+                            <div class="d-grid grid-cols-2 gap-4">
+                                <div class="form-group">
+                                    <label class="form-label">Họ và tên</label>
+                                    <input type="text" class="form-control" value="Nguyễn Văn A" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Số điện thoại</label>
+                                    <input type="tel" class="form-control" value="0987123456" disabled>
+                                    <div class="text-muted text-sm mt-1">Số điện thoại không thể thay đổi.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" value="nguyenvana@gmail.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Ngày sinh</label>
+                                    <input type="date" class="form-control" value="1999-05-12">
+                                </div>
+                                <div class="form-group col-span-2" style="grid-column: span 2;">
+                                    <label class="form-label">Số CCCD / CMND (Dùng để làm hợp đồng)</label>
+                                    <input type="text" class="form-control" value="001099012345">
+                                </div>
+                                <div class="form-group col-span-2" style="grid-column: span 2;">
+                                    <label class="form-label">Địa chỉ thường trú</label>
+                                    <input type="text" class="form-control" value="Số 10, Đội Cấn, Ba Đình, Hà Nội">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-2">Cập nhật thông tin</button>
+                        </form>
+                    </div>
+
+                    <div class="card p-4">
+                        <h2 class="font-bold mb-4 border-bottom border-color pb-2" style="font-size: 1.25rem;">Đổi Mật
+                            Khẩu Tự Động</h2>
+                        <form class="needs-validation">
+                            <div class="d-grid grid-cols-2 gap-4">
+                                <div class="form-group col-span-2" style="grid-column: span 2;">
+                                    <label class="form-label">Mật khẩu hiện tại</label>
+                                    <input type="password" class="form-control" required style="max-width: 50%;">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Mật khẩu mới</label>
+                                    <input type="password" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Xác nhận mật khẩu mới</label>
+                                    <input type="password" class="form-control" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-secondary mt-2">Đổi mật khẩu</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

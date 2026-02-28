@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Phòng - RentNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <style>
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: 250px 250px;
+            gap: 0.5rem;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            background-color: #eee;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item.main {
+            grid-row: 1 / span 2;
+        }
+
+        .view-all-photos {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: white;
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .sticky-booking-card {
+            position: sticky;
+            top: 90px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .amenity-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(15, 82, 186, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: 300px 150px;
+            }
+
+            .gallery-item:nth-child(3) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-surface">
+
+    <!-- Header / Navbar -->
+    <header class="navbar border-bottom border-color">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-home"></i> RentNest
+            </a>
+            <nav class="navbar-menu d-flex align-items-center">
+                <ul class="navbar-nav">
+                    <li><a href="rooms.html" class="nav-link active"><i class="fas fa-chevron-left"></i> Quay lại tìm
+                            kiếm</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="py-4">
+        <div class="container">
+            <!-- Header Title -->
+            <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
+                <div>
+                    <div class="d-flex gap-2 mb-2">
+                        <span class="badge badge-success">Còn phòng</span>
+                        <span class="badge" style="background: var(--bg-alt); color: var(--text-main);"><i
+                                class="fas fa-check-circle text-primary"></i> Đã xác thực</span>
+                    </div>
+                    <h1 class="font-bold m-0" style="font-size: 2rem;">Studio Full Nội Thất Có Cửa Sổ</h1>
+                    <p class="text-muted mt-2 mb-0"><i class="fas fa-map-marker-alt"></i> Ngõ 175 Xuân Thủy, Dịch Vọng
+                        Hậu, Cầu Giấy, Hà Nội</p>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline btn-icon rounded-circle"><i class="fas fa-share-alt"></i></button>
+                    <button class="btn btn-outline btn-icon rounded-circle"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+
+            <!-- Image Gallery Grid -->
+            <div class="gallery-grid">
+                <div class="gallery-item main">
+                    <img src="https://images.unsplash.com/photo-1555541170-1361cddf01d0?w=1000&auto=format&fit=crop"
+                        alt="Main Room">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1522771732448-6dabd57cacc2?w=600&auto=format&fit=crop"
+                        alt="Bed">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&auto=format&fit=crop"
+                        alt="Bathroom">
+                    <button class="view-all-photos"><i class="fas fa-th"></i> Xem 12 Ảnh</button>
+                </div>
+            </div>
+
+            <div class="d-grid gap-5" style="grid-template-columns: 2fr 1fr;">
+                <!-- Left Detail Section -->
+                <div>
+                    <!-- Overview Setup -->
+                    <div class="d-flex gap-4 pb-4 border-bottom border-color mb-4 flex-wrap">
+                        <div>
+                            <div class="text-muted" style="font-size: 0.875rem;">Diện tích</div>
+                            <div class="font-bold" style="font-size: 1.25rem;"><i
+                                    class="fas fa-vector-square text-primary"></i> 30m²</div>
+                        </div>
+                        <div>
+                            <div class="text-muted" style="font-size: 0.875rem;">Loại phòng</div>
+                            <div class="font-bold" style="font-size: 1.25rem;"><i
+                                    class="fas fa-door-open text-primary"></i> Studio</div>
+                        </div>
+                        <div>
+                            <div class="text-muted" style="font-size: 0.875rem;">Sức chứa</div>
+                            <div class="font-bold" style="font-size: 1.25rem;"><i
+                                    class="fas fa-user-friends text-primary"></i> 2 Người</div>
+                        </div>
+                        <div>
+                            <div class="text-muted" style="font-size: 0.875rem;">Phòng tắm</div>
+                            <div class="font-bold" style="font-size: 1.25rem;"><i class="fas fa-bath text-primary"></i>
+                                Khép kín</div>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-5">
+                        <h3 class="font-bold mb-3">Mô tả chi tiết</h3>
+                        <div class="text-main" style="line-height: 1.7;">
+                            <p>Cho thuê phòng trọ Studio mới xây, full nội thất cao cấp tại Cầu Giấy. Giờ giấc tự do,
+                                không chung chủ, khóa vân tay an ninh 2-lớp camera giám sát 24/7.</p>
+                            <p>P.102: Phòng tầng 1, ban công cửa sổ lớn đón ánh sáng tự nhiên. Rất phù hợp với sinh viên
+                                HUBT hoặc sinh viên các trường lân cận, sinh hoạt tự do thoải mái.</p>
+                            <p class="font-semibold mt-3">Miễn phí dịch vụ:</p>
+                            <ul>
+                                <li>- Miễn phí dọn dẹp vệ sinh hành lang 2 lần/tuần</li>
+                                <li>- Miễn phí gửi 2 xe máy dưới hầm</li>
+                                <li>- Miễn phí phí máy giặt chung</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Amenities -->
+                    <div class="mb-5">
+                        <h3 class="font-bold mb-3">Tiện ích trong phòng</h3>
+                        <div class="d-grid grid-cols-2 gap-x-4">
+                            <div class="amenity-item">
+                                <div class="amenity-icon"><i class="fas fa-snowflake"></i></div>
+                                <span class="font-medium">Điều hòa Inverter</span>
+                            </div>
+                            <div class="amenity-item">
+                                <div class="amenity-icon"><i class="fas fa-bed"></i></div>
+                                <span class="font-medium">Giường đệm chăn ga</span>
+                            </div>
+                            <div class="amenity-item">
+                                <div class="amenity-icon"><i class="fas fa-door-closed"></i></div>
+                                <span class="font-medium">Tủ quần áo gỗ</span>
+                            </div>
+                            <div class="amenity-item">
+                                <div class="amenity-icon"><i class="fas fa-fire"></i></div>
+                                <span class="font-medium">Bếp từ & Hút mùi</span>
+                            </div>
+                            <div class="amenity-item">
+                                <div class="amenity-icon"><i class="fas fa-wifi"></i></div>
+                                <span class="font-medium">Wifi tốc độ cao</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location Maps Mock -->
+                    <div class="mb-5">
+                        <h3 class="font-bold mb-3">Vị trí bản đồ</h3>
+                        <div class="bg-alt rounded d-flex align-items-center justify-content-center"
+                            style="height: 300px; border-radius: var(--radius-lg); overflow: hidden;">
+                            <div class="text-center text-muted">
+                                <i class="fas fa-map-marked-alt text-light mb-2" style="font-size: 3rem;"></i><br>
+                                Google Maps Embed Here
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Booking Column -->
+                <aside>
+                    <div class="sticky-booking-card">
+                        <div class="mb-4 text-center">
+                            <span class="text-muted">Giá thuê</span>
+                            <div class="text-primary font-bold" style="font-size: 2rem;">4.500.000đ<span
+                                    class="text-muted" style="font-size: 1rem; font-weight: normal;">/tháng</span></div>
+                        </div>
+
+                        <div class="bg-alt p-3 rounded mb-4" style="border-radius: var(--radius-md);">
+                            <h4 class="font-semibold mb-2" style="font-size: 0.875rem;">Phí dịch vụ khác:</h4>
+                            <div class="d-flex justify-content-between mb-1" style="font-size: 0.875rem;">
+                                <span class="text-muted">Điện</span>
+                                <span>3.800đ / kWh</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-1" style="font-size: 0.875rem;">
+                                <span class="text-muted">Nước</span>
+                                <span>25.000đ / khối</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-1" style="font-size: 0.875rem;">
+                                <span class="text-muted">Mạng (Wifi)</span>
+                                <span>100.000đ / phòng</span>
+                            </div>
+                        </div>
+
+                        <!-- Landlord Info -->
+                        <div class="d-flex align-items-center gap-3 mb-4 p-3 border rounded"
+                            style="border-color: var(--border-color);">
+                            <img src="https://ui-avatars.com/api/?name=Chủ+Nhà&background=0F52BA&color=fff" alt="Avatar"
+                                style="width: 50px; height: 50px; border-radius: 50%;">
+                            <div>
+                                <div class="font-semibold">Cô Lan Cầu Giấy</div>
+                                <div class="text-success" style="font-size: 0.8rem;"><i class="fas fa-check-circle"></i>
+                                    Chủ nhà xác thực · Review 4.8/5</div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-block btn-lg mb-2"
+                            onclick="RentNestUI.showToast('Yêu cầu giữ phòng đã được gửi đến chủ nhà!', 'success')">
+                            Yêu cầu giữ phòng ngay
+                        </button>
+                        <button class="btn btn-outline btn-block btn-lg" style="color: #10B981; border-color: #10B981;">
+                            <i class="fab fa-whatsapp"></i> Chat Zalo Chủ Nhà
+                        </button>
+
+                        <p class="text-center text-muted mt-3" style="font-size: 0.75rem;">Bạn sẽ không bị trừ tiền khi
+                            nhấn nút giữ phòng.</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" style="background-color: #1F2937; color: #9CA3AF; padding: 3rem 0; margin-top: auto;">
+        <div class="container text-center">
+            <p>&copy; 2026 RentNest.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

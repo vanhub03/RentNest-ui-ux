@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký - RentNest</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <style>
+        body {
+            background-color: var(--bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .auth-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            width: 100%;
+            max-width: 550px;
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-option {
+            flex: 1;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .role-option:hover {
+            border-color: var(--primary-light);
+            background-color: rgba(15, 82, 186, 0.02);
+        }
+
+        .role-option.active {
+            border-color: var(--primary);
+            background-color: rgba(15, 82, 186, 0.05);
+            color: var(--primary);
+        }
+
+        .role-option i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .role-option.active i {
+            color: var(--primary);
+        }
+
+        .auth-body {
+            padding: 1.5rem 2.5rem 2.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="auth-card">
+        <div class="text-center pt-4 pb-2">
+            <a href="index.html" class="font-bold text-primary" style="font-size: 1.5rem;"><i class="fas fa-home"></i>
+                RentNest</a>
+            <h1 class="font-bold mt-2" style="font-size: 1.5rem;">Tạo tài khoản mới</h1>
+        </div>
+
+        <div class="auth-body">
+            <form class="needs-validation">
+
+                <label class="form-label text-center mb-3">Bạn là ai?</label>
+                <div class="role-selector">
+                    <div class="role-option active" onclick="selectRole(this, 'TENANT')">
+                        <i class="fas fa-user"></i>
+                        <div class="font-semibold">Người tìm phòng</div>
+                    </div>
+                    <div class="role-option" onclick="selectRole(this, 'LANDLORD')">
+                        <i class="fas fa-building"></i>
+                        <div class="font-semibold">Chủ nhà trọ</div>
+                    </div>
+                    <input type="hidden" id="roleInput" name="role" value="TENANT">
+                </div>
+
+                <div class="d-grid grid-cols-2 gap-3 mb-3">
+                    <div class="form-group mb-0">
+                        <label class="form-label">Tên đăng nhập (Username)</label>
+                        <input type="text" class="form-control" name="username" placeholder="nguyenvana123" required>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label class="form-label">Họ và Tên</label>
+                        <input type="text" class="form-control" name="fullname" placeholder="Nguyễn Văn A" required>
+                    </div>
+                </div>
+
+                <div class="d-grid grid-cols-2 gap-3 mb-3">
+                    <div class="form-group mb-0">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" placeholder="example@mail.com" required>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label class="form-label">Số điện thoại</label>
+                        <input type="tel" class="form-control" name="phoneNumber" placeholder="0987..." required>
+                    </div>
+                </div>
+
+                <div class="d-grid grid-cols-2 gap-3">
+                    <div class="form-group">
+                        <label class="form-label">Mật khẩu</label>
+                        <input type="password" class="form-control" name="password" placeholder="Tối thiểu 8 ký tự"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Xác nhận mật khẩu</label>
+                        <input type="password" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-group mt-4">
+                    <label
+                        style="display: flex; gap: 0.5rem; align-items: flex-start; cursor: pointer; font-size: 0.875rem;">
+                        <input type="checkbox" required style="margin-top: 0.25rem;">
+                        <span class="text-muted">Tôi đồng ý với <a href="#" class="text-primary font-medium">Điều khoản
+                                dịch vụ</a> và <a href="#" class="text-primary font-medium">Chính sách bảo mật</a> của
+                            RentNest.</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-lg mt-4">
+                    Đăng ký tài khoản
+                </button>
+
+                <div class="text-center mt-4 text-sm text-muted">
+                    Đã có tài khoản? <a href="login.html" class="font-semibold text-primary">Đăng nhập</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        function selectRole(element, role) {
+            document.querySelectorAll('.role-option').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('roleInput').value = role;
+        }
+    </script>
+</body>
+
+</html>

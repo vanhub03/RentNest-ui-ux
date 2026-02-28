@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Giá Dịch Vụ - RentNest</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <style>
+        .pricing-hero {
+            background-color: var(--primary);
+            color: white;
+            padding: 4rem 0 6rem;
+            text-align: center;
+        }
+
+        .pricing-card {
+            border: 2px solid transparent;
+            position: relative;
+            margin-top: -3rem;
+            /* overlap hero */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .pricing-card.popular {
+            border-color: var(--primary);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .price-amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list li i.fa-check {
+            color: var(--success);
+        }
+
+        .feature-list li i.fa-times {
+            color: var(--text-light);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-home"></i> RentNest
+            </a>
+
+            <button class="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav class="navbar-menu d-flex align-items-center">
+                <ul class="navbar-nav">
+                    <li><a href="index.html" class="nav-link">Trang chủ</a></li>
+                    <li><a href="rooms.html" class="nav-link">Xem Phòng</a></li>
+                    <li><a href="pricing.html" class="nav-link active">Bảng giá Dịch vụ</a></li>
+                    <li><a href="contact.html" class="nav-link">Liên hệ</a></li>
+                </ul>
+                <div class="nav-actions d-flex gap-2">
+                    <a href="login.html" class="btn btn-outline btn-sm">Đăng nhập</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Đăng ký</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="pricing-hero">
+            <div class="container reveal">
+                <h1 class="font-bold mb-3">Chuyển Đổi Số Khu Trọ Của Bạn</h1>
+                <p class="text-lg opacity-80 max-w-2xl mx-auto">Các gói giải pháp quản lý từ cơ bản đến nâng cao, hỗ trợ
+                    tự động hóa hóa đơn và chốt điện nước 100%.</p>
+            </div>
+        </section>
+
+        <!-- Pricing Cards -->
+        <section class="pb-5">
+            <div class="container">
+                <div class="d-grid grid-cols-3 gap-4 mx-auto" style="max-width: 1000px;">
+
+                    <!-- Basic Plan -->
+                    <div class="card pricing-card p-4 reveal-left">
+                        <h3 class="font-bold text-center mb-1">Cơ Bản</h3>
+                        <p class="text-center text-muted text-sm mb-4">Dành cho cá nhân cho thuê phòng lẻ</p>
+                        <div class="text-center mb-4">
+                            <span class="price-amount">Miễn phí</span>
+                        </div>
+                        <a href="register.html" class="btn btn-outline btn-block">Bắt đầu ngay</a>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Quản lý tối đa 5 phòng</li>
+                            <li><i class="fas fa-check"></i> Đăng tin tìm khách thuê</li>
+                            <li><i class="fas fa-check"></i> Quản lý hợp đồng PDF cơ bản</li>
+                            <li><i class="fas fa-times"></i> Không có xuất hóa đơn tự động</li>
+                            <li><i class="fas fa-times"></i> Không có nhắc nợ Email/SMS</li>
+                            <li><i class="fas fa-times"></i> Không có báo cáo doanh thu</li>
+                        </ul>
+                    </div>
+
+                    <!-- Pro Plan -->
+                    <div class="card pricing-card popular p-4 reveal delay-200">
+                        <div class="popular-badge">PHỔ BIẾN NHẤT</div>
+                        <h3 class="font-bold text-center mb-1 text-primary">Chuyên Nghiệp</h3>
+                        <p class="text-center text-muted text-sm mb-4">Dành cho chủ trọ, CCMN từ 10-50 phòng</p>
+                        <div class="text-center mb-4">
+                            <span class="price-amount">250K</span><span class="text-muted">/tháng</span>
+                        </div>
+                        <a href="register.html" class="btn btn-primary btn-block">Dùng thử 14 ngày</a>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Quản lý lên đến 50 phòng</li>
+                            <li><i class="fas fa-check"></i> <strong>Chốt điện nước & Sinh Hóa đơn tự động</strong></li>
+                            <li><i class="fas fa-check"></i> <strong>Thanh toán mã QR động tự động gạch nợ</strong></li>
+                            <li><i class="fas fa-check"></i> Báo cáo thống kê thu chi</li>
+                            <li><i class="fas fa-check"></i> Mẫu hợp đồng điện tử chuyên nghiệp</li>
+                            <li><i class="fas fa-check"></i> Nhắc nợ thanh toán tự động (Email)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Enterprise Plan -->
+                    <div class="card pricing-card p-4 reveal-right delay-400">
+                        <h3 class="font-bold text-center mb-1">Doanh Nghiệp</h3>
+                        <p class="text-center text-muted text-sm mb-4">Chuỗi căn hộ dịch vụ, trên 50 phòng</p>
+                        <div class="text-center mb-4">
+                            <span class="price-amount">Liên hệ</span>
+                        </div>
+                        <a href="contact.html" class="btn btn-outline btn-block">Gọi tư vấn</a>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Không giới hạn số tòa nhà/phòng</li>
+                            <li><i class="fas fa-check"></i> Tất cả tính năng của gói Pro</li>
+                            <li><i class="fas fa-check"></i> Phân quyền nhiều nhân viên/quản lý</li>
+                            <li><i class="fas fa-check"></i> SMS Brandname tự động</li>
+                            <li><i class="fas fa-check"></i> API Tích hợp khóa tủ đồ/cửa thẻ từ smart home</li>
+                            <li><i class="fas fa-check"></i> Hỗ trợ kỹ thuật ưu tiên 24/7</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="py-5 bg-light reveal">
+            <div class="container max-w-3xl mx-auto">
+                <h2 class="text-center font-bold mb-5">Câu Hỏi Thường Gặp</h2>
+
+                <div class="card p-4 mb-3 card-hover">
+                    <h4 class="font-semibold mb-2">Tôi có thể thay đổi gói dịch vụ sau khi đăng ký không?</h4>
+                    <p class="text-muted">Có, bạn hoàn toàn có thể nâng cấp hoặc hạ gói dịch vụ bất kỳ lúc nào. Giá trị
+                        còn lại của tháng sẽ được khấu trừ vào gói mới.</p>
+                </div>
+
+                <div class="card p-4 mb-3 card-hover">
+                    <h4 class="font-semibold mb-2">Chức năng quét mã VietQR tự động gạch nợ hoặt động ra sao?</h4>
+                    <p class="text-muted">Khi hệ thống sinh hóa đơn, một mã VietQR sẽ được tạo kèm theo số tiền và mã tự
+                        sinh (VD: P102 Thang 04). Khi người thuê chuyển khoản quét mã này, hệ thống qua API sẽ nhận dạng
+                        số tiền và cập nhật "Đã thanh toán" trên hệ thống Admin mà chủ nhà không cần kiểm tra lại sao
+                        kê.</p>
+                </div>
+
+                <div class="card p-4 card-hover">
+                    <h4 class="font-semibold mb-2">Bảo mật dữ liệu của tôi thế nào?</h4>
+                    <p class="text-muted">Hệ thống của chúng tôi được lưu trữ trên hạ tầng Cloud Amazon Web Services
+                        (AWS) bảo mật tiêu chuẩn, sử dụng công nghệ Redis để chống Spam và các request độc hại. Dữ liệu
+                        của mỗi khách hàng được mã hóa độc lập.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Chat Buttons -->
+    <div class="floating-chat-container">
+        <a href="tel:19001234" class="float-btn btn-call" data-tooltip="Gọi Hotline ngay">
+            <i class="fas fa-phone-alt"></i>
+            <div class="pulse-ring"></div>
+        </a>
+        <a href="https://zalo.me/0988111222" target="_blank" class="float-btn btn-zalo" data-tooltip="Chat Zalo">
+            <i class="fas fa-comment-dots"></i>
+            <div class="pulse-ring" style="animation-delay: 0.5s;"></div>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white pt-5 pb-3 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2026 RentNest. Nền tảng quản lý BĐS cho thuê hàng đầu.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

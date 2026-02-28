@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
+    <title>RentNest - Nền Tảng Tìm Kiếm & Quản Lý Nhà Trọ Chuyên Nghiệp</title>
+    <meta name="description"
+        content="RentNest giúp bạn tìm kiếm phòng trọ, căn hộ dịch vụ uy tín, giá rẻ. Quản lý hợp đồng, hóa đơn và sự cố online một cách dễ dàng.">
+    <meta name="keywords" content="thuê phòng trọ, căn hộ mini, quản lý nhà trọ, rentnest">
+    <meta name="author" content="RentNest">
+
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="RentNest - Tìm Căn Hộ Dịch Vụ Nhanh Chóng">
+    <meta property="og:description" content="Nền tảng tìm kiếm và quản lý phòng trọ hiện đại, minh bạch, nhanh chóng.">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <style>
+        /* Specific Page Styles */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(15, 82, 186, 0.9) 0%, rgba(8, 61, 142, 0.95) 100%), url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: slideUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .search-box {
+            background: white;
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            display: flex;
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: var(--shadow-xl);
+            animation: slideUp 0.8s ease-out 0.4s backwards;
+        }
+
+        @media (max-width: 768px) {
+            .search-box {
+                flex-direction: column;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+        }
+
+        .feature-icon-box {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(15, 82, 186, 0.1);
+            color: var(--primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .footer {
+            background-color: #1F2937;
+            color: #9CA3AF;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-title {
+            color: white;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links a {
+            color: #9CA3AF;
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-home"></i> RentNest
+            </a>
+
+            <button class="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav class="navbar-menu d-flex align-items-center">
+                <ul class="navbar-nav">
+                    <li><a href="index.html" class="nav-link active">Trang chủ</a></li>
+                    <li><a href="rooms.html" class="nav-link">Xem Phòng</a></li>
+                    <li><a href="pricing.html" class="nav-link">Bảng giá Dịch vụ</a></li>
+                    <li><a href="contact.html" class="nav-link">Liên hệ</a></li>
+                </ul>
+                <div class="nav-actions d-flex gap-2">
+                    <a href="login.html" class="btn btn-outline btn-sm">Đăng nhập</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Đăng ký</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title reveal">Tìm Chỗ Ở Tuyệt Vời Của Bạn</h1>
+                <p class="hero-subtitle reveal delay-200">Hệ thống tìm kiếm và quản lý phòng trọ thông minh, minh bạch
+                    và nhanh chóng nhất hiện nay.</p>
+
+                <form class="search-box reveal delay-400" action="rooms.html" method="GET">
+                    <div class="flex-1 text-left">
+                        <label class="form-label"
+                            style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 0.25rem;">Khu
+                            vực</label>
+                        <select class="form-control" name="district"
+                            style="border: none; background-color: var(--bg-alt); padding: 0.5rem;">
+                            <option value="">Tất cả quận/huyện</option>
+                            <option value="caugiay">Cầu Giấy, Hà Nội</option>
+                            <option value="thanhxuan">Thanh Xuân, Hà Nội</option>
+                            <option value="q1">Quận 1, TP.HCM</option>
+                        </select>
+                    </div>
+                    <div class="flex-1 text-left">
+                        <label class="form-label"
+                            style="color: var(--text-muted); font-size: 0.75rem; margin-bottom: 0.25rem;">Khoảng
+                            giá</label>
+                        <select class="form-control" name="price"
+                            style="border: none; background-color: var(--bg-alt); padding: 0.5rem;">
+                            <option value="">Mọi mức giá</option>
+                            <option value="under3">Dưới 3 triệu</option>
+                            <option value="3to5">3 - 5 triệu</option>
+                            <option value="over5">Trên 5 triệu</option>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block"
+                            style="height: calc(100% - 1.25rem);">
+                            <i class="fas fa-search"></i> Tìm kiếm
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-5" style="background-color: var(--bg-surface);">
+            <div class="container">
+                <div class="text-center mb-5 reveal">
+                    <span class="badge badge-primary mb-2">Vì sao chọn RentNest?</span>
+                    <h2 class="font-bold">Hệ Sinh Thái Quản Lý Toàn Diện</h2>
+                </div>
+
+                <div class="d-grid grid-cols-3 gap-4">
+                    <div class="card card-hover p-4 border-0 reveal-left" style="background-color: var(--bg-main);">
+                        <div class="feature-icon-box animate-float">
+                            <i class="fas fa-search-location"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2">Tìm Phòng Dễ Dàng</h3>
+                        <p class="text-muted">Bộ lọc thông minh giúp bạn tìm được căn phòng ưng ý với mức giá và vị trí
+                            tốt nhất, hình ảnh thực tế xát gốc.</p>
+                    </div>
+
+                    <div class="card card-hover p-4 border-0 reveal delay-200"
+                        style="background-color: var(--bg-main);">
+                        <div class="feature-icon-box animate-float" style="animation-delay: 0.5s;">
+                            <i class="fas fa-file-signature"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2">Hợp Đồng Điển Tử</h3>
+                        <p class="text-muted">Ký kết và quản lý hợp đồng thuê nhà hoàn toàn trực tuyến, pháp lý rõ ràng,
+                            minh bạch thông tin hai bên.</p>
+                    </div>
+
+                    <div class="card card-hover p-4 border-0 reveal-right delay-400"
+                        style="background-color: var(--bg-main);">
+                        <div class="feature-icon-box animate-float" style="animation-delay: 1s;">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <h3 class="font-semibold mb-2">Thanh Toán Xuyên Suốt</h3>
+                        <p class="text-muted">Nhận hóa đơn chi tiết hàng tháng và thanh toán thuận tiện qua quét mã QR
+                            Code, Momo, ZaloPay tự động gạch nợ.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest Rooms -->
+        <section class="py-5">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center mb-4 reveal">
+                    <h2 class="font-bold m-0">Phòng Mới Đăng Tuyển</h2>
+                    <a href="rooms.html" class="btn btn-outline btn-sm">Xem tất cả <i
+                            class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="d-grid grid-cols-4 gap-4">
+                    <!-- Room Card 1 -->
+                    <div class="card room-card reveal">
+                        <div class="badge-overlay">
+                            <span class="badge badge-success">Còn trống</span>
+                        </div>
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1555541170-1361cddf01d0?w=600&auto=format&fit=crop&q=60"
+                                alt="Room 1" class="card-img">
+                        </div>
+                        <div class="card-body p-3">
+                            <div class="text-muted mb-1" style="font-size: 0.8rem;"><i
+                                    class="fas fa-map-marker-alt"></i> Cầu Giấy, Hà Nội</div>
+                            <h4 class="font-semibold mb-2" style="font-size: 1.1rem;">Studio Full Nội Thất Cửa Sổ Cực
+                                Rộng</h4>
+                            <div class="text-primary font-bold mb-3" style="font-size: 1.25rem;">4.500.000đ <span
+                                    class="text-muted" style="font-size: 0.8rem; font-weight: normal;">/tháng</span>
+                            </div>
+                            <div class="d-flex justify-content-between text-muted"
+                                style="font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+                                <span><i class="fas fa-vector-square"></i> 30m²</span>
+                                <span><i class="fas fa-bed"></i> 1 Giường</span>
+                                <span><i class="fas fa-bath"></i> 1 WC</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Room Card 2 -->
+                    <div class="card room-card reveal delay-100">
+                        <div class="badge-overlay">
+                            <span class="badge badge-warning">Sắp trống</span>
+                        </div>
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1522771732448-6dabd57cacc2?w=600&auto=format&fit=crop&q=60"
+                                alt="Room 2" class="card-img">
+                        </div>
+                        <div class="card-body p-3">
+                            <div class="text-muted mb-1" style="font-size: 0.8rem;"><i
+                                    class="fas fa-map-marker-alt"></i> Thanh Xuân, Hà Nội</div>
+                            <h4 class="font-semibold mb-2" style="font-size: 1.1rem;">Căn Hộ Dịch Vụ 1 Khách 1 Ngủ</h4>
+                            <div class="text-primary font-bold mb-3" style="font-size: 1.25rem;">6.000.000đ <span
+                                    class="text-muted" style="font-size: 0.8rem; font-weight: normal;">/tháng</span>
+                            </div>
+                            <div class="d-flex justify-content-between text-muted"
+                                style="font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+                                <span><i class="fas fa-vector-square"></i> 45m²</span>
+                                <span><i class="fas fa-bed"></i> 1 PN</span>
+                                <span><i class="fas fa-bath"></i> 1 WC</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Room Card 3 -->
+                    <div class="card room-card reveal delay-200">
+                        <div class="badge-overlay">
+                            <span class="badge badge-success">Còn trống</span>
+                        </div>
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=600&auto=format&fit=crop&q=60"
+                                alt="Room 3" class="card-img">
+                        </div>
+                        <div class="card-body p-3">
+                            <div class="text-muted mb-1" style="font-size: 0.8rem;"><i
+                                    class="fas fa-map-marker-alt"></i> Quận 1, TP.HCM</div>
+                            <h4 class="font-semibold mb-2" style="font-size: 1.1rem;">Phòng Trọ Giá Rẻ Trung Tâm</h4>
+                            <div class="text-primary font-bold mb-3" style="font-size: 1.25rem;">3.200.000đ <span
+                                    class="text-muted" style="font-size: 0.8rem; font-weight: normal;">/tháng</span>
+                            </div>
+                            <div class="d-flex justify-content-between text-muted"
+                                style="font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+                                <span><i class="fas fa-vector-square"></i> 20m²</span>
+                                <span><i class="fas fa-bed"></i> Nệm</span>
+                                <span><i class="fas fa-bath"></i> 1 WC</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Room Card 4 -->
+                    <div class="card room-card reveal delay-300">
+                        <div class="badge-overlay">
+                            <span class="badge badge-success">Còn trống</span>
+                        </div>
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&auto=format&fit=crop&q=60"
+                                alt="Room 4" class="card-img">
+                        </div>
+                        <div class="card-body p-3">
+                            <div class="text-muted mb-1" style="font-size: 0.8rem;"><i
+                                    class="fas fa-map-marker-alt"></i> Đống Đa, Hà Nội</div>
+                            <h4 class="font-semibold mb-2" style="font-size: 1.1rem;">Duplex Có Ban Công Mát Mẻ</h4>
+                            <div class="text-primary font-bold mb-3" style="font-size: 1.25rem;">5.500.000đ <span
+                                    class="text-muted" style="font-size: 0.8rem; font-weight: normal;">/tháng</span>
+                            </div>
+                            <div class="d-flex justify-content-between text-muted"
+                                style="font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+                                <span><i class="fas fa-vector-square"></i> 35m²</span>
+                                <span><i class="fas fa-bed"></i> 1 Gác xép</span>
+                                <span><i class="fas fa-bath"></i> 1 WC</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-5" style="background-color: rgba(15, 82, 186, 0.05);">
+            <div class="container text-center reveal">
+                <h2 class="font-bold mb-3">Bạn Là Chủ Nhà Trọ?</h2>
+                <p class="text-muted mb-4 max-w-2xl mx-auto">Trải nghiệm hệ thống quản lý bất động sản chuyên nghiệp với
+                    tính năng chốt điện nước, xuất hóa đơn tự động và đánh giá người thuê uy tín.</p>
+                <a href="admin/dashboard.html" class="btn btn-secondary btn-lg animate-float">Dùng Thử Admin Portal</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Chat Buttons -->
+    <div class="floating-chat-container">
+        <a href="tel:19001234" class="float-btn btn-call" data-tooltip="Gọi Hotline ngay">
+            <i class="fas fa-phone-alt"></i>
+            <div class="pulse-ring"></div>
+        </a>
+        <a href="https://zalo.me/0988111222" target="_blank" class="float-btn btn-zalo" data-tooltip="Chat Zalo">
+            <i class="fas fa-comment-dots"></i>
+            <div class="pulse-ring" style="animation-delay: 0.5s;"></div>
+        </a>
+        <a href="https://messenger.com" target="_blank" class="float-btn btn-messenger" data-tooltip="Messenger">
+            <i class="fab fa-facebook-messenger"></i>
+            <div class="pulse-ring" style="animation-delay: 1s;"></div>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="d-grid grid-cols-4 gap-4 mb-4">
+                <div class="col-span-1">
+                    <div class="navbar-brand text-white mb-3">
+                        <i class="fas fa-home"></i> RentNest
+                    </div>
+                    <p style="font-size: 0.875rem;">Nền tảng công nghệ giúp kết nối người thuê và chủ nhà chọ dễ dàng,
+                        minh bạch với chi phí tối ưu nhất.</p>
+                </div>
+                <div>
+                    <h4 class="footer-title">Khám Phá</h4>
+                    <div class="footer-links">
+                        <a href="#">Phòng đang trống</a>
+                        <a href="#">Căn hộ dịch vụ</a>
+                        <a href="#">Chung cư mini</a>
+                        <a href="#">Tìm bạn ở ghép</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-title">Dành Cho Chủ Nhà</h4>
+                    <div class="footer-links">
+                        <a href="#">Đăng tin cho thuê</a>
+                        <a href="#">Quản lý hóa đơn</a>
+                        <a href="#">Báo cáo doanh thu</a>
+                        <a href="#">Hợp đồng mẫu</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-title">Liên Hệ</h4>
+                    <div class="footer-links">
+                        <p class="mb-2"><i class="fas fa-map-marker-alt"></i> 123 Đường Công Nghệ, Hà Nội</p>
+                        <p class="mb-2"><i class="fas fa-phone"></i> 1900 1234</p>
+                        <p class="mb-2"><i class="fas fa-envelope"></i> xinchao@rentnest.vn</p>
+                        <div class="d-flex gap-2 mt-3">
+                            <a href="#" class="btn btn-icon" style="background: rgba(255,255,255,0.1); color: white;"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="btn btn-icon" style="background: rgba(255,255,255,0.1); color: white;"><i
+                                    class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center pt-4" style="border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.875rem;">
+                &copy; 2026 RentNest. Phân quyền và Thiết kế UI/UX theo tiêu chuẩn.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

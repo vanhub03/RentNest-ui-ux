@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập - RentNest</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <style>
+        body {
+            background-color: var(--bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .auth-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .auth-header {
+            text-align: center;
+            padding: 2rem 2rem 1rem;
+        }
+
+        .auth-brand {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .auth-body {
+            padding: 1rem 2.5rem 2.5rem;
+        }
+
+        .password-input-wrapper {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .divider:not(:empty)::before {
+            margin-right: .5rem;
+        }
+
+        .divider:not(:empty)::after {
+            margin-left: .5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="auth-card">
+        <div class="auth-header">
+            <a href="index.html" class="auth-brand"><i class="fas fa-home"></i> RentNest</a>
+            <h1 class="font-bold" style="font-size: 1.5rem; color: var(--text-main);">Đăng nhập tài khoản</h1>
+            <p class="text-muted m-0">Chào mừng trở lại! Vui lòng nhập thông tin.</p>
+        </div>
+
+        <div class="auth-body">
+            <form class="needs-validation" onsubmit="handleMockAuth(event, 'login')">
+
+                <!-- Notice the ID here is just to show a danger state mock if empty -->
+                <div class="form-group">
+                    <label class="form-label" for="phone">Số điện thoại hoặc Email</label>
+                    <input type="text" id="phone" class="form-control" placeholder="Nhập SĐT hoặc Email" required>
+                    <div class="form-error">Vui lòng nhập số điện thoại hoặc email.</div>
+                </div>
+
+                <div class="form-group">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <label class="form-label m-0" for="password">Mật khẩu</label>
+                        <a href="forgot-password.html" class="text-primary text-sm font-medium"
+                            style="font-size: 0.85rem;">Quên mật khẩu?</a>
+                    </div>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                        <i class="fas fa-eye password-toggle" onclick="togglePassword()"></i>
+                    </div>
+                    <div class="form-error">Vui lòng nhập mật khẩu.</div>
+                </div>
+
+                <div class="form-group d-flex justify-content-between align-items-center">
+                    <label class="checkbox-label m-0">
+                        <input type="checkbox"> Ghi nhớ đăng nhập
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-lg mt-4">
+                    Đăng nhập
+                </button>
+
+                <div class="divider">Hoặc</div>
+
+                <button type="button" class="btn btn-outline btn-block mb-3"
+                    style="color: #DB4437; border-color: var(--border-color);">
+                    <i class="fab fa-google"></i> Đăng nhập với Google
+                </button>
+                <button type="button" class="btn btn-outline btn-block"
+                    style="color: #4267B2; border-color: var(--border-color);">
+                    <i class="fab fa-facebook"></i> Đăng nhập với Facebook
+                </button>
+
+                <div class="text-center mt-4 text-sm text-muted">
+                    Chưa có tài khoản? <a href="register.html" class="font-semibold text-primary">Đăng ký ngay</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        function togglePassword() {
+            const input = document.getElementById('password');
+            const icon = document.querySelector('.password-toggle');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Auto route mock for demonstration
+        function handleMockAuth(e, type) {
+            // main.js handles the loading state, here we just setup the routing after loading finishes
+            e.preventDefault();
+            setTimeout(() => {
+                // Determine logic based on input
+                const loginInput = document.getElementById('phone').value;
+                if (loginInput.toLowerCase() === 'admin') {
+                    window.location.href = 'admin/dashboard.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
+            }, 2000); // 2s matches the main.js timeout
+        }
+    </script>
+</body>
+
+</html>

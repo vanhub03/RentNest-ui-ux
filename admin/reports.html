@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Cáo - RentNest Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-home text-primary"></i> RentNest Admin
+            </div>
+            <nav class="sidebar-nav">
+                <div class="px-3 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tổng quan</div>
+                <a href="dashboard.html" class="sidebar-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Quản lý Dữ
+                    liệu</div>
+                <a href="rooms.html" class="sidebar-link"><i class="fas fa-door-open"></i> Phòng & Giường</a>
+                <a href="tenants.html" class="sidebar-link"><i class="fas fa-users"></i> Khách Thuê</a>
+                <a href="contracts.html" class="sidebar-link"><i class="fas fa-file-signature"></i> Hợp Đồng</a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tài chính
+                </div>
+                <a href="services.html" class="sidebar-link"><i class="fas fa-plug"></i> Dịch Vụ & Điện Nước</a>
+                <a href="invoices.html" class="sidebar-link"><i class="fas fa-file-invoice-dollar"></i> Hóa Đơn</a>
+                <a href="reports.html" class="sidebar-link active"><i class="fas fa-chart-bar"></i> Báo Cáo</a>
+                <!-- ... other links ... -->
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="d-flex align-items-center gap-3">
+                    <button id="sidebarToggle" class="btn btn-icon d-lg-none"><i class="fas fa-bars"></i></button>
+                    <h2 class="m-0 font-semibold" style="font-size: 1.25rem;">Báo Cáo Thống Kê</h2>
+                </div>
+            </header>
+
+            <div class="admin-content">
+                <div class="card p-3 mb-4 d-flex flex-row justify-content-between align-items-center">
+                    <div class="d-flex gap-3">
+                        <select class="form-control" style="width: 200px;">
+                            <option>Loại: Doanh thu & Chi phí</option>
+                            <option>Loại: Tỉ lệ lấp đầy</option>
+                        </select>
+                        <input type="month" class="form-control" value="2026-02">
+                    </div>
+                    <div>
+                        <button class="btn btn-outline text-success" style="border-color: var(--success);"><i
+                                class="fas fa-file-excel"></i> Xuất Excel</button>
+                        <button class="btn btn-outline text-danger" style="border-color: var(--danger);"><i
+                                class="fas fa-file-pdf"></i> Xuất PDF</button>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-4 mb-4" style="grid-template-columns: 1fr 1fr;">
+                    <div class="card p-4">
+                        <h3 class="font-semibold m-0 mb-3" style="font-size: 1.1rem;">Cơ cấu doanh thu theo dịch vụ</h3>
+                        <div style="height: 300px; display: flex; justify-content: center;">
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card p-4">
+                        <h3 class="font-semibold m-0 mb-3" style="font-size: 1.1rem;">Lợi nhuận gộp (Thu - Chi)</h3>
+                        <div style="height: 300px;">
+                            <canvas id="barChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detail Table -->
+                <div class="card p-0">
+                    <div class="card-header border-0 bg-transparent">
+                        <h3 class="font-semibold m-0" style="font-size: 1.1rem;">Bảng chi tiết Dòng tiền (Tháng 02/2026)
+                        </h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Cơ sở</th>
+                                    <th>Tổng Tiền Tiền Phòng</th>
+                                    <th>Tổng Tiền Điện/Nước</th>
+                                    <th>Tổng Thu</th>
+                                    <th>Chi Phí (Nhập thủ công)</th>
+                                    <th class="text-right">Lợi Nhuận Gộp</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-medium text-main">Xuân Thủy</td>
+                                    <td>120.000.000đ</td>
+                                    <td>25.500.000đ</td>
+                                    <td class="font-bold text-success">145.500.000đ</td>
+                                    <td class="text-danger">- 10.000.000đ</td>
+                                    <td class="font-bold text-primary text-right text-lg">135.500.000đ</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-medium text-main">Cầu Giấy</td>
+                                    <td>80.000.000đ</td>
+                                    <td>15.200.000đ</td>
+                                    <td class="font-bold text-success">95.200.000đ</td>
+                                    <td class="text-danger">- 5.000.000đ</td>
+                                    <td class="font-bold text-primary text-right text-lg">90.200.000đ</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mock Pie
+            const ctxPie = document.getElementById('pieChart').getContext('2d');
+            new Chart(ctxPie, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Tiền Phòng', 'Tiền Điện', 'Tiền Nước', 'Dịch Vụ Khác'],
+                    datasets: [{
+                        data: [70, 15, 10, 5],
+                        backgroundColor: ['#0F52BA', '#F59E0B', '#3B82F6', '#6B7280']
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // Mock Bar
+            const ctxBar = document.getElementById('barChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['Xuân Thủy', 'Cầu Giấy'],
+                    datasets: [
+                        { label: 'Tổng Thu', data: [145, 95], backgroundColor: '#10B981' },
+                        { label: 'Chi Phí', data: [10, 5], backgroundColor: '#EF4444' }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        });
+    </script>
+</body>
+
+</html>

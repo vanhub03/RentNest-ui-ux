@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mẫu Email - RentNest Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <!-- Summernote Rich Text Editor Mock -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"></script>
+</head>
+
+<body>
+
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-home text-primary"></i> RentNest Admin
+            </div>
+            <nav class="sidebar-nav">
+                <div class="px-3 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tổng quan</div>
+                <a href="dashboard.html" class="sidebar-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Quản lý Dữ
+                    liệu</div>
+                <a href="rooms.html" class="sidebar-link"><i class="fas fa-door-open"></i> Phòng & Giường</a>
+                <a href="tenants.html" class="sidebar-link"><i class="fas fa-users"></i> Khách Thuê</a>
+                <a href="contracts.html" class="sidebar-link"><i class="fas fa-file-signature"></i> Hợp Đồng</a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tài chính
+                </div>
+                <a href="services.html" class="sidebar-link"><i class="fas fa-plug"></i> Dịch Vụ & Điện Nước</a>
+                <a href="invoices.html" class="sidebar-link"><i class="fas fa-file-invoice-dollar"></i> Hóa Đơn</a>
+                <a href="reports.html" class="sidebar-link"><i class="fas fa-chart-bar"></i> Báo Cáo</a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Hệ thống
+                </div>
+                <a href="email-templates.html" class="sidebar-link active"><i class="fas fa-envelope-open-text"></i> Mẫu
+                    Email</a>
+                <a href="settings.html" class="sidebar-link"><i class="fas fa-cog"></i> Cài Đặt</a>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="d-flex align-items-center gap-3">
+                    <button id="sidebarToggle" class="btn btn-icon d-lg-none"><i class="fas fa-bars"></i></button>
+                    <h2 class="m-0 font-semibold" style="font-size: 1.25rem;">Quản Lý Mẫu Email</h2>
+                </div>
+            </header>
+
+            <div class="admin-content">
+                <div class="d-grid gap-4" style="grid-template-columns: 300px 1fr;">
+                    <!-- Template List -->
+                    <div class="card p-0">
+                        <div class="card-header border-bottom border-color bg-transparent">
+                            <h3 class="font-semibold m-0" style="font-size: 1.1rem;">Danh sách mẫu</h3>
+                        </div>
+                        <div class="nav-pills d-flex flex-column p-2">
+                            <a href="#"
+                                class="btn justify-content-start text-left bg-light text-primary font-semibold mb-1"><i
+                                    class="fas fa-file-invoice-dollar mr-2"></i> Nhắc nợ tiền phòng</a>
+                            <a href="#" class="btn justify-content-start text-left btn-white text-muted mb-1"><i
+                                    class="fas fa-file-contract mr-2"></i> Thông báo hợp đồng sắp hết hạn</a>
+                            <a href="#" class="btn justify-content-start text-left btn-white text-muted mb-1"><i
+                                    class="fas fa-birthday-cake mr-2"></i> Chúc mừng sinh nhật</a>
+                            <a href="#" class="btn justify-content-start text-left btn-white text-muted"><i
+                                    class="fas fa-welcome mr-2"></i> Welcome khách mới</a>
+                        </div>
+                        <div class="p-3 border-top border-color">
+                            <button class="btn btn-outline btn-block"><i class="fas fa-plus"></i> Thêm mẫu mới</button>
+                        </div>
+                    </div>
+
+                    <!-- Editor -->
+                    <div class="card p-4">
+                        <form class="needs-validation">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h3 class="font-semibold m-0" style="font-size: 1.1rem;">Mẫu: Nhắc nợ tiền phòng</h3>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Lưu
+                                    Mẫu</button>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Tiêu đề Gửi (Subject)</label>
+                                <input type="text" class="form-control"
+                                    value="[RentNest] Thông báo thanh toán hóa đơn tiền phòng kỳ {{month}}/{{year}}"
+                                    required>
+                                <div class="text-xs text-muted mt-1">Các biến có thể dùng: <code>{{tenant_name}}</code>,
+                                    <code>{{room_name}}</code>, <code>{{month}}</code>, <code>{{year}}</code></div>
+                            </div>
+
+                            <div class="form-group mb-0">
+                                <label class="form-label">Nội dung Email</label>
+                                <div class="border rounded p-3" style="min-height: 300px; background: white;">
+                                    <p>Xin chào <strong>{{tenant_name}}</strong>,</p>
+                                    <p>Ban quản lý tòa nhà xin thông báo hóa đơn tiền phòng
+                                        <strong>{{room_name}}</strong> kỳ <strong>{{month}}/{{year}}</strong> của bạn đã
+                                        được chốt.</p>
+                                    <p>Tổng số tiền cần thanh toán là: <strong style="color: red;">{{total_amount}}
+                                            VNĐ</strong>.</p>
+                                    <p>Hạn cuối thanh toán: <strong>{{due_date}}</strong>.</p>
+                                    <p>Vui lòng thanh toán sớm để đảm bảo quyền lợi và dịch vụ không bị gián đoạn. Bạn
+                                        có thể xem chi tiết và thanh toán bằng mã QR tại trang quản lý cá nhân.</p>
+                                    <br>
+                                    <p>Trân trọng,<br>Ban quản lý RentNest.</p>
+                                </div>
+                                <div class="text-xs text-muted mt-2">Các biến có thể dùng: <code>{{tenant_name}}</code>,
+                                    <code>{{room_name}}</code>, <code>{{month}}</code>, <code>{{year}}</code>,
+                                    <code>{{total_amount}}</code>, <code>{{due_date}}</code>,
+                                    <code>{{payment_link}}</code></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

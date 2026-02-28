@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng Đang Thuê - RentNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <style>
+        .profile-sidebar {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .profile-header {
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 4px solid var(--bg-alt);
+        }
+
+        .nav-pills {
+            list-style: none;
+            padding: 0.5rem 0;
+            margin: 0;
+        }
+
+        .nav-pills li a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .nav-pills li a:hover {
+            background: var(--bg-alt);
+        }
+
+        .nav-pills li a.active {
+            background: rgba(15, 82, 186, 0.1);
+            color: var(--primary);
+            font-weight: 500;
+            border-left: 3px solid var(--primary);
+        }
+
+        .room-details-card {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .room-thumbnail {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+        }
+
+        @media (max-width: 768px) {
+            .room-details-card {
+                flex-direction: column;
+            }
+
+            .room-thumbnail {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-alt">
+
+    <header class="navbar border-bottom">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand"><i class="fas fa-home"></i> RentNest</a>
+            <div class="d-flex align-items-center gap-3">
+                <a href="rooms.html" class="nav-link"><i class="fas fa-search"></i> Thuê phòng</a>
+                <div class="dropdown" style="position: relative; cursor: pointer;">
+                    <img src="https://ui-avatars.com/api/?name=User&background=0F52BA&color=fff" alt="User"
+                        style="width: 35px; height: 35px; border-radius: 50%;">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-5">
+        <div class="container">
+            <div class="d-grid gap-4" style="grid-template-columns: 280px 1fr;">
+
+                <aside>
+                    <div class="profile-sidebar">
+                        <div class="profile-header">
+                            <img src="https://ui-avatars.com/api/?name=User&background=0F52BA&color=fff&size=100"
+                                class="profile-avatar" alt="Avatar">
+                            <h3 class="font-bold mb-1" style="font-size: 1.1rem;">Nguyễn Văn A</h3>
+                            <span class="badge badge-success">Khách Thuê Phòng</span>
+                        </div>
+                        <ul class="nav-pills">
+                            <li><a href="profile.html"><i class="fas fa-user mr-2 text-muted" style="width: 25px;"></i>
+                                    Thông tin cá nhân</a></li>
+                            <li><a href="my-rooms.html" class="active"><i class="fas fa-key mr-2 text-muted"
+                                        style="width: 25px;"></i> Phòng đang thuê</a></li>
+                            <li><a href="my-invoices.html"><i class="fas fa-file-invoice-dollar mr-2 text-muted"
+                                        style="width: 25px;"></i> Hóa đơn của tôi</a></li>
+                            <li><a href="login.html" class="text-danger"><i class="fas fa-sign-out-alt mr-2"
+                                        style="width: 25px;"></i> Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <div class="d-flex flex-column gap-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="font-bold m-0" style="font-size: 1.5rem;">Căn Phòng Đang Thuê Của Bạn</h2>
+                    </div>
+
+                    <!-- Room Item -->
+                    <div class="card p-4">
+                        <div class="room-details-card">
+                            <img src="https://images.unsplash.com/photo-1555541170-1361cddf01d0?w=600"
+                                class="room-thumbnail" alt="Room">
+                            <div class="flex-1">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <div class="badge badge-success mb-2">Đang Thuê</div>
+                                        <h3 class="font-bold mb-1" style="font-size: 1.25rem;">Studio Full Nội Thất Có
+                                            Cửa Sổ</h3>
+                                        <p class="text-muted text-sm"><i class="fas fa-map-marker-alt"></i> P.102 - Ngõ
+                                            175 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-muted text-sm mb-1">Giá Thuê</div>
+                                        <div class="font-bold text-primary" style="font-size: 1.25rem;">4.500.000đ</div>
+                                    </div>
+                                </div>
+                                <hr class="my-3 border-color">
+                                <div class="d-flex gap-4 mb-3 flex-wrap">
+                                    <div><span class="text-muted text-sm">Chủ nhà:</span> <strong class="text-main">Cô
+                                            Lan Cầu Giấy</strong></div>
+                                    <div><span class="text-muted text-sm">Điện thoại:</span> <strong
+                                            class="text-main">0981.234.567</strong></div>
+                                    <div><span class="text-muted text-sm">Ngày vào ở:</span> <strong
+                                            class="text-main">01/01/2026</strong></div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-primary btn-sm" data-modal-target="issueModal"><i
+                                            class="fas fa-tools"></i> Báo cáo sự cố sửa chữa</button>
+                                    <button class="btn btn-outline btn-sm"><i class="fas fa-file-signature"></i> Xem hợp
+                                        đồng điện tử</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Report Issue -->
+    <div class="modal-overlay" id="issueModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Báo Cáo Sự Cố</h3>
+                <button class="modal-close" data-modal-close>&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation">
+                    <div class="form-group">
+                        <label class="form-label">Loại sự cố</label>
+                        <select class="form-control" required>
+                            <option value="">-- Chọn --</option>
+                            <option>Hỏng Điện / Cháy Bóng Đèn</option>
+                            <option>Rò rỉ Nước / Khóa cửa hỏng</option>
+                            <option>Đồ nội thất</option>
+                            <option>Internet / Wifi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Mô tả sự cố</label>
+                        <textarea class="form-control" rows="4"
+                            placeholder="VD: Vòi nước bồn rửa mặt bị nhỏ giọt liên tục..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Hình ảnh đính kèm (Tùy chọn)</label>
+                        <input type="file" class="form-control" accept="image/*" style="padding-top: 5px;">
+                    </div>
+                    <div class="modal-footer p-0 border-0 mt-4">
+                        <button type="button" class="btn btn-outline" data-modal-close>Hủy</button>
+                        <button type="submit" class="btn btn-primary">Gửi Yêu Cầu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

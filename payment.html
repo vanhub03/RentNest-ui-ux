@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán - RentNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+</head>
+
+<body class="bg-alt" style="display: flex; flex-direction: column; min-height: 100vh;">
+
+    <header class="navbar border-bottom border-color bg-surface">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand"><i class="fas fa-home"></i> RentNest</a>
+            <a href="my-invoices.html" class="nav-link"><i class="fas fa-arrow-left"></i> Trở về DS Hóa đơn</a>
+        </div>
+    </header>
+
+    <main class="py-5 flex-1 d-flex align-items-center">
+        <div class="container" style="max-width: 800px;">
+
+            <div class="card p-0 overflow-hidden box-shadow-xl border-0">
+                <div class="d-grid grid-cols-2" style="min-height: 500px;">
+
+                    <!-- Left: Invoice Info -->
+                    <div class="bg-primary text-white p-5 d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="badge bg-white text-primary mb-3">Thanh Tóa Hóa Đơn Kỳ 02/2026</div>
+                            <h2 class="text-white font-bold mb-2">Hóa Đơn P.102</h2>
+                            <p style="opacity: 0.8;">Căn Hộ Dịch Vụ - Ngõ 175 Xuân Thủy</p>
+
+                            <hr style="border-color: rgba(255,255,255,0.2);" class="my-4">
+
+                            <div class="d-flex justify-content-between mb-2">
+                                <span style="opacity: 0.8;">Tiền Cọc / Quỹ</span>
+                                <span>0đ</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span style="opacity: 0.8;">Tổng tiền dịch vụ</span>
+                                <span>700.000đ</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span style="opacity: 0.8;">Tổng tiền phòng</span>
+                                <span>4.500.000đ</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-4" style="border-top: 2px dashed rgba(255,255,255,0.3);">
+                            <div class="text-sm" style="opacity: 0.8;">Mã hóa đơn: #INV-202602-001</div>
+                            <div class="d-flex justify-content-between align-items-end mt-2">
+                                <span class="text-lg">TỔNG CAN THANH TOÁN</span>
+                                <span class="font-bold" style="font-size: 2rem;">5.200K</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Payment Methods & QR -->
+                    <div class="bg-surface p-5 d-flex flex-column">
+                        <h3 class="font-bold mb-4 text-center">Phương thức thanh toán</h3>
+
+                        <div class="nav-pills d-flex border rounded p-1 mb-4 bg-alt">
+                            <button class="btn flex-1 bg-surface box-shadow-sm font-semibold text-primary"
+                                style="height: auto;">Mã QR (VietQR)</button>
+                            <button class="btn flex-1 text-muted" style="height: auto;">Thẻ Tín Dụng</button>
+                        </div>
+
+                        <div class="text-center flex-1 d-flex flex-column justify-content-center align-items-center">
+                            <div class="border rounded p-3 mb-3" style="border-color: var(--primary) !important;">
+                                <!-- Mock QR image -->
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=MoMockPayment"
+                                    alt="QR Code" style="width: 200px; height: 200px;">
+                            </div>
+
+                            <div class="mb-2 font-bold text-lg text-main">Ngân hàng MB Bank</div>
+                            <div class="mb-1">STK: <strong class="text-primary font-bold">123456789</strong> <button
+                                    class="btn btn-sm btn-icon"><i class="far fa-copy"></i></button></div>
+                            <div class="mb-4">Tên chủ TK: NGUYEN VAN A</div>
+
+                            <div class="alert alert-warning text-sm text-left mb-0">
+                                <strong>Lưu ý:</strong> Vui lòng giữ nguyên nội dung chuyển khoản để hệ thống tự động
+                                xác nhận trong vòng 1-5 phút.
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <!-- Only for mock jumping to success state -->
+                            <button class="btn btn-outline btn-block" onclick="processMockPayment(this)">Giả lập Thành
+                                Công (Dem0)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        function processMockPayment(btn) {
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
+            setTimeout(() => {
+                alert("Thanh toán thành công! Trở về trang hóa đơn.");
+                window.location.href = 'my-invoices.html';
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>

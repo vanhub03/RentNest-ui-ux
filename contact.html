@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên Hệ - RentNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <style>
+        .contact-info-card {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem;
+            border-radius: var(--radius-lg);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-info-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+
+        .contact-info-item i {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-home"></i> RentNest
+            </a>
+
+            <button class="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav class="navbar-menu d-flex align-items-center">
+                <ul class="navbar-nav">
+                    <li><a href="index.html" class="nav-link">Trang chủ</a></li>
+                    <li><a href="rooms.html" class="nav-link">Xem Phòng</a></li>
+                    <li><a href="pricing.html" class="nav-link">Bảng giá Dịch vụ</a></li>
+                    <li><a href="contact.html" class="nav-link active">Liên hệ</a></li>
+                </ul>
+                <div class="nav-actions d-flex gap-2">
+                    <a href="login.html" class="btn btn-outline btn-sm">Đăng nhập</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Đăng ký</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="py-5" style="background-color: var(--bg-surface);">
+        <div class="container py-4">
+
+            <div class="text-center mb-5 reveal">
+                <h1 class="font-bold">Liên Hệ Với Chúng Tôi</h1>
+                <p class="text-muted max-w-2xl mx-auto mt-2">Đội ngũ RentNest luôn sẵn sàng giải đáp thắc mắc và hỗ trợ
+                    bạn thiết lập hệ thống nhà trọ mới một cách mượt mà nhất.</p>
+            </div>
+
+            <div class="d-grid gap-4"
+                style="grid-template-columns: 1fr 1fr; max-width: 1000px; margin: 0 auto; min-height: 500px;">
+
+                <!-- Contact Info -->
+                <div class="contact-info-card reveal-left">
+                    <h2 class="font-bold mb-4 text-white">Thông Tin Liên Hệ</h2>
+                    <p class="mb-5 opacity-80">Liên hệ qua hotline hoặc ghé thăm văn phòng của chúng tôi để được tư vấn
+                        trực tiếp về các giải pháp quản lý nhà trọ.</p>
+
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4 class="font-semibold text-white mb-1">Trụ sở chính</h4>
+                            <p class="opacity-80 m-0">Tầng 6, Tòa nhà công nghệ cao, Khu đô thị Cầu Giấy, Hà Nội</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4 class="font-semibold text-white mb-1">Hotline CSKH</h4>
+                            <p class="opacity-80 m-0">1900 1234 (8h00 - 18h00)<br>0988.111.222 (Ngoài giờ)</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4 class="font-semibold text-white mb-1">Email</h4>
+                            <p class="opacity-80 m-0">support@rentnest.vn<br>sales@rentnest.vn</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="card p-5 reveal-right">
+                    <h3 class="font-bold mb-4">Gửi tin nhắn</h3>
+                    <form
+                        onsubmit="event.preventDefault(); window.RentNestUI.showToast('Tin nhắn của bạn đã được gửi. Chúng tôi sẽ phản hồi sớm nhất!');">
+                        <div class="form-group">
+                            <label class="form-label">Họ và Tên</label>
+                            <input type="text" class="form-control" placeholder="Nhập họ tên của bạn" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Số điện thoại</label>
+                            <input type="tel" class="form-control" placeholder="Để chúng tôi có thể gọi lại cho bạn"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Vấn đề cần hỗ trợ</label>
+                            <select class="form-control" required>
+                                <option value="">--- Chọn chủ đề ---</option>
+                                <option value="1">Tư vấn sử dụng phần mềm Admin</option>
+                                <option value="2">Báo lỗi/Hỗ trợ kỹ thuật</option>
+                                <option value="3">Hợp tác kinh doanh/Sale</option>
+                                <option value="4">Khác</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nội dung chi tiết</label>
+                            <textarea class="form-control" rows="4" placeholder="Nhập nội dung bạn cần hỗ trợ ở đây..."
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-4">Gửi Yêu Cầu <i
+                                class="fas fa-paper-plane ml-2"></i></button>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Map Map -->
+            <div class="mt-5 reveal" style="max-width: 1000px; margin: 0 auto;">
+                <div class="card p-0 overflow-hidden"
+                    style="border-radius: var(--radius-lg); height: 400px; background: #e9ecef; display: flex; align-items: center; justify-content: center;">
+                    <!-- Google Maps Embed Mock -->
+                    <div class="text-center text-muted">
+                        <i class="fas fa-map-marked-alt fa-3x mb-3"></i>
+                        <h3 class="font-semibold">Bản Đồ Vị Trí</h3>
+                        <p>[Tích hợp Google Maps Iframe ở đây]</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Floating Chat Buttons -->
+    <div class="floating-chat-container">
+        <a href="tel:19001234" class="float-btn btn-call" data-tooltip="Gọi Hotline ngay">
+            <i class="fas fa-phone-alt"></i>
+            <div class="pulse-ring"></div>
+        </a>
+        <a href="https://zalo.me/0988111222" target="_blank" class="float-btn btn-zalo" data-tooltip="Chat Zalo">
+            <i class="fas fa-comment-dots"></i>
+            <div class="pulse-ring" style="animation-delay: 0.5s;"></div>
+        </a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

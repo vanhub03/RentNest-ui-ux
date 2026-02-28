@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Tin Cho Thuê - RentNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <style>
+        .upload-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 3rem 2rem;
+            text-align: center;
+            background-color: var(--bg-alt);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .upload-zone:hover,
+        .upload-zone.dragover {
+            border-color: var(--primary);
+            background-color: rgba(15, 82, 186, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .preview-item {
+            position: relative;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-remove {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .step-indicator::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--border-color);
+            z-index: 1;
+        }
+
+        .step {
+            position: relative;
+            z-index: 2;
+            background: var(--bg-surface);
+            padding: 0 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-muted);
+        }
+
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--border-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            transition: all var(--transition-normal);
+        }
+
+        .step.active .step-circle {
+            background: var(--primary);
+        }
+
+        .step.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .step.completed .step-circle {
+            background: var(--success);
+        }
+    </style>
+</head>
+
+<body style="background-color: var(--bg-alt);">
+
+    <header class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-home"></i> RentNest
+            </a>
+
+            <nav class="navbar-menu d-flex align-items-center">
+                <ul class="navbar-nav">
+                    <li><a href="index.html" class="nav-link">Trang chủ</a></li>
+                    <li><a href="rooms.html" class="nav-link">Xem Phòng</a></li>
+                    <li><a href="pricing.html" class="nav-link">Bảng giá Dịch vụ</a></li>
+                </ul>
+                <div class="nav-actions d-flex gap-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="https://ui-avatars.com/api/?name=Chu+Nha&background=0F52BA&color=fff" alt="Avatar"
+                            class="rounded-full" width="32" height="32">
+                        <span class="font-semibold text-sm">Chủ nhà A</span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="py-5">
+        <div class="container max-w-4xl mx-auto">
+
+            <div class="d-flex justify-content-between align-items-center mb-4 reveal">
+                <div>
+                    <h1 class="font-bold mb-1">Đăng Tin Cho Thuê Mới</h1>
+                    <p class="text-muted m-0">Điền đầy đủ thông tin để thu hút người thuê nhanh chóng nhất.</p>
+                </div>
+                <a href="my-rooms.html" class="btn btn-outline">Hủy bỏ</a>
+            </div>
+
+            <!-- Steps -->
+            <div class="step-indicator reveal delay-100">
+                <div class="step active">
+                    <div class="step-circle">1</div>
+                    <span class="text-sm">Thông tin cơ bản</span>
+                </div>
+                <div class="step">
+                    <div class="step-circle">2</div>
+                    <span class="text-sm">Tiện ích & Hình ảnh</span>
+                </div>
+                <div class="step">
+                    <div class="step-circle">3</div>
+                    <span class="text-sm">Thanh toán & Đăng tin</span>
+                </div>
+            </div>
+
+            <form class="needs-validation"
+                onsubmit="event.preventDefault(); window.RentNestUI.showToast('Tin đăng đang được kiểm duyệt! Bạn sẽ được chuyển hướng về trang quản lý.', 'success'); setTimeout(() => window.location.href='my-rooms.html', 2500);">
+                <div class="card p-4 mb-4 reveal delay-200">
+                    <h3 class="font-semibold border-bottom border-color pb-2 mb-4">1. Địa chỉ & Thông tin cơ bản</h3>
+
+                    <div class="d-grid grid-cols-2 gap-4 mb-3">
+                        <div class="form-group col-span-2">
+                            <label class="form-label">Tiêu đề bản tin <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control"
+                                placeholder="VD: Phòng Trọ Mới Xây Đầy Đủ Nội Thất Giáp Quận 1" required>
+                            <div class="form-error">Vui lòng nhập tiêu đề</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Loại phòng <span class="text-danger">*</span></label>
+                            <select class="form-control" required>
+                                <option value="">-- Chọn loại phòng --</option>
+                                <option value="studio">Studio</option>
+                                <option value="1pn">Căn hộ 1PN</option>
+                                <option value="2pn">Căn hộ 2PN</option>
+                                <option value="tro">Phòng trọ sinh viên</option>
+                                <option value="ktx">Ký túc xá / Sleepbox</option>
+                            </select>
+                            <div class="form-error">Vui lòng chọn loại phòng</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Giá cho thuê (VNĐ/tháng) <span
+                                    class="text-danger">*</span></label>
+                            <input type="number" class="form-control" placeholder="VD: 3500000" required>
+                            <div class="form-error">Vui lòng nhập giá thuê</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Diện tích (m²) <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" placeholder="VD: 25" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Tiền cọc (VNĐ)</label>
+                            <input type="number" class="form-control" placeholder="VD: 3500000">
+                        </div>
+                    </div>
+
+                    <h4 class="font-medium text-sm mb-2 mt-2">Vị trí địa lý</h4>
+                    <div class="d-grid grid-cols-3 gap-3">
+                        <div class="form-group">
+                            <select class="form-control" required>
+                                <option value="">Tỉnh/Thành phố</option>
+                                <option value="hn">Hà Nội</option>
+                                <option value="hcm">Hồ Chí Minh</option>
+                                <option value="dn">Đà Nẵng</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" required>
+                                <option value="">Quận/Huyện</option>
+                                <option value="cg">Cầu Giấy</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" required>
+                                <option value="">Phường/Xã</option>
+                                <option value="dh">Dịch Vọng Hậu</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Số nhà, ngõ, tên đường <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="VD: Số 12, Ngõ 34 Xuân Thủy" required>
+                    </div>
+                </div>
+
+                <div class="card p-4 mb-4 reveal delay-300">
+                    <h3 class="font-semibold border-bottom border-color pb-2 mb-4">2. Tiện ích & Hình ảnh</h3>
+
+                    <div class="form-group mb-4">
+                        <label class="form-label">Mô tả chi tiết <span class="text-danger">*</span></label>
+                        <textarea class="form-control" rows="5"
+                            placeholder="Mô tả các tiện nghi, môi trường sống xung quanh, lưu ý thêm đối với người thuê..."
+                            required></textarea>
+                    </div>
+
+                    <label class="form-label">Tiện ích sẵn có</label>
+                    <div class="d-grid grid-cols-4 gap-2 mb-4">
+                        <label class="d-flex align-items-center gap-2 p-2 border rounded cursor-pointer"
+                            style="background: white;">
+                            <input type="checkbox"> Máy lạnh
+                        </label>
+                        <label class="d-flex align-items-center gap-2 p-2 border rounded cursor-pointer"
+                            style="background: white;">
+                            <input type="checkbox"> Máy giặt
+                        </label>
+                        <label class="d-flex align-items-center gap-2 p-2 border rounded cursor-pointer"
+                            style="background: white;">
+                            <input type="checkbox"> Tủ lạnh
+                        </label>
+                        <label class="d-flex align-items-center gap-2 p-2 border rounded cursor-pointer"
+                            style="background: white;">
+                            <input type="checkbox"> Giường, nệm
+                        </label>
+                        <label class="d-flex align-items-center gap-2 p-2 border rounded cursor-pointer"
+                            style="background: white;">
+                            <input type="checkbox"> Tủ quần áo
+                        </label>
+                        <label class="d-flex align-items-center gap-2 p-2 border rounded cursor-pointer"
+                            style="background: white;">
+                            <input type="checkbox"> Ban công
+                        </label>
+                        <label class="d-flex align-items-center gap-2 p-2 border rounded cursor-pointer"
+                            style="background: white;">
+                            <input type="checkbox"> Bếp đun
+                        </label>
+                        <label class="d-flex align-items-center gap-2 p-2 border rounded cursor-pointer"
+                            style="background: white;">
+                            <input type="checkbox"> Thang máy
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Hình ảnh phòng (Tối đa 6 ảnh) <span
+                                class="text-danger">*</span></label>
+                        <div class="upload-zone" id="dropZone">
+                            <i class="fas fa-images upload-icon"></i>
+                            <h4 class="font-semibold mb-1">Kéo thả ảnh vào đây</h4>
+                            <p class="text-sm text-muted mb-3">Hoặc click để chọn file từ máy (PNG, JPG tối đa 5MB)</p>
+                            <input type="file" id="fileInput" multiple accept="image/*" class="d-none">
+                            <button type="button" class="btn btn-primary btn-sm"
+                                onclick="document.getElementById('fileInput').click()">Chọn Ảnh</button>
+                        </div>
+
+                        <!-- Image Previews Mock -->
+                        <div class="preview-grid" id="previewGrid">
+                            <!-- JS Will append here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-4 mb-4 reveal delay-400">
+                    <h3 class="font-semibold border-bottom border-color pb-2 mb-4">3. Cấu hình dịch vụ & Đăng tin</h3>
+                    <div class="d-grid grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label class="form-label">Tiền Điện (VNĐ/kWh) <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" value="3800" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tiền Nước (VNĐ/Khối hoặc VNĐ/Người) <span
+                                    class="text-danger">*</span></label>
+                            <input type="number" class="form-control" value="100000" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phí Internet / Mạng</label>
+                            <input type="number" class="form-control" value="100000">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phí Vệ Sinh Chung</label>
+                            <input type="number" class="form-control" value="50000">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-4 pt-4 border-top border-color">
+                        <p class="text-muted text-sm m-0">Với việc nhấn "Đăng tin", bạn đồng ý với các Quy định & Chính
+                            sách của nền tảng.</p>
+                        <button type="submit" class="btn btn-primary btn-lg">HOÀN TẤT & ĐĂNG TIN <i
+                                class="fas fa-paper-plane ml-2"></i></button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </main>
+
+    <!-- Floating Chat Buttons -->
+    <div class="floating-chat-container">
+        <a href="tel:19001234" class="float-btn btn-call" data-tooltip="Gọi Hotline ngay">
+            <i class="fas fa-phone-alt"></i>
+            <div class="pulse-ring"></div>
+        </a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Mock Image Upload Preview Logic
+        document.getElementById('fileInput').addEventListener('change', function (e) {
+            const grid = document.getElementById('previewGrid');
+            if (this.files && this.files.length > 0) {
+                // Mock adding preview images
+                const imgUrl = URL.createObjectURL(this.files[0]);
+                const item = document.createElement('div');
+                item.className = 'preview-item fade-in';
+                item.innerHTML = `
+                    <img src="${imgUrl}" alt="Preview">
+                    <button type="button" class="preview-remove" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+                `;
+                grid.appendChild(item);
+
+                // Show toast
+                window.RentNestUI.showToast(`Đã tải lên ${this.files.length} ảnh thành công!`);
+            }
+        });
+
+        // Mock Drag and Drop visual
+        const dropZone = document.getElementById('dropZone');
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+        });
+    </script>
+</body>
+
+</html>

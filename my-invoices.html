@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hóa Đơn - RentNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <style>
+        .profile-sidebar {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .profile-header {
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 4px solid var(--bg-alt);
+        }
+
+        .nav-pills {
+            list-style: none;
+            padding: 0.5rem 0;
+            margin: 0;
+        }
+
+        .nav-pills li a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .nav-pills li a:hover {
+            background: var(--bg-alt);
+        }
+
+        .nav-pills li a.active {
+            background: rgba(15, 82, 186, 0.1);
+            color: var(--primary);
+            font-weight: 500;
+            border-left: 3px solid var(--primary);
+        }
+    </style>
+</head>
+
+<body class="bg-alt">
+
+    <header class="navbar border-bottom">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand"><i class="fas fa-home"></i> RentNest</a>
+            <div class="d-flex align-items-center gap-3">
+                <a href="rooms.html" class="nav-link"><i class="fas fa-search"></i> Thuê phòng</a>
+                <div class="dropdown" style="position: relative; cursor: pointer;">
+                    <img src="https://ui-avatars.com/api/?name=User&background=0F52BA&color=fff" alt="User"
+                        style="width: 35px; height: 35px; border-radius: 50%;">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-5">
+        <div class="container">
+            <div class="d-grid gap-4" style="grid-template-columns: 280px 1fr;">
+
+                <aside>
+                    <div class="profile-sidebar">
+                        <div class="profile-header">
+                            <img src="https://ui-avatars.com/api/?name=User&background=0F52BA&color=fff&size=100"
+                                class="profile-avatar" alt="Avatar">
+                            <h3 class="font-bold mb-1" style="font-size: 1.1rem;">Nguyễn Văn A</h3>
+                            <span class="badge badge-success">Khách Thuê Phòng</span>
+                        </div>
+                        <ul class="nav-pills">
+                            <li><a href="profile.html"><i class="fas fa-user mr-2 text-muted" style="width: 25px;"></i>
+                                    Thông tin cá nhân</a></li>
+                            <li><a href="my-rooms.html"><i class="fas fa-key mr-2 text-muted" style="width: 25px;"></i>
+                                    Phòng đang thuê</a></li>
+                            <li><a href="my-invoices.html" class="active"><i
+                                        class="fas fa-file-invoice-dollar mr-2 text-muted" style="width: 25px;"></i> Hóa
+                                    đơn của tôi</a></li>
+                            <li><a href="login.html" class="text-danger"><i class="fas fa-sign-out-alt mr-2"
+                                        style="width: 25px;"></i> Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <div class="d-flex flex-column gap-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="font-bold m-0" style="font-size: 1.5rem;">Lịch Sử Hóa Đơn</h2>
+                        <select class="form-control w-auto">
+                            <option>Năm 2026</option>
+                            <option>Năm 2025</option>
+                        </select>
+                    </div>
+
+                    <!-- Current Unpaid Invoice -->
+                    <div class="card p-0 border-danger" style="border-width: 2px;">
+                        <div
+                            class="card-header bg-danger text-white py-2 px-4 d-flex justify-content-between align-items-center">
+                            <span class="font-bold"><i class="fas fa-exclamation-circle"></i> HÓA ĐƠN ĐANG CHỜ THANH
+                                TOÁN (Kỳ 02/2026)</span>
+                            <span class="badge bg-white text-danger">Chưa thanh toán</span>
+                        </div>
+                        <div class="card-body p-4">
+                            <div
+                                class="d-flex justify-content-between align-items-center mb-4 pb-4 border-bottom border-color flex-wrap gap-3">
+                                <div>
+                                    <h3 class="font-bold mb-1" style="font-size: 1.25rem;">Hóa Đơn Tháng 02/2026</h3>
+                                    <p class="text-muted m-0 text-sm">Phòng 102 - 175 Xuân Thủy</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-muted text-sm mb-1">Hạn thanh toán: 05/03/2026</div>
+                                    <div class="text-danger font-bold" style="font-size: 1.5rem;">5.200.000đ</div>
+                                </div>
+                            </div>
+
+                            <div class="d-grid grid-cols-2 gap-x-5 gap-y-2 mb-4 text-sm">
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-muted">Tiền phòng:</span>
+                                    <span class="font-medium">4.500.000đ</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-muted">Tiền điện (Chỉ số: 100 - 200, 100 số x 3.8k):</span>
+                                    <span class="font-medium">380.000đ</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-muted">Tiền nước:</span>
+                                    <span class="font-medium">100.000đ</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-muted">Internet/Wifi:</span>
+                                    <span class="font-medium">100.000đ</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="text-muted">Phí dịch vụ/Rác:</span>
+                                    <span class="font-medium">120.000đ</span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-2">
+                                <button class="btn btn-outline"><i class="fas fa-download"></i> PDF</button>
+                                <a href="payment.html" class="btn btn-danger"><i class="fas fa-credit-card"></i> Thanh
+                                    Toán Ngay</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paid Invoices Table -->
+                    <div class="card p-0 overflow-hidden">
+                        <div class="table-responsive">
+                            <table class="table m-0">
+                                <thead>
+                                    <tr>
+                                        <th>Kỳ hóa đơn</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Trạng thái</th>
+                                        <th class="text-right">Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Tháng 01/2026</strong> <br><span
+                                                class="text-muted text-sm">P.102</span></td>
+                                        <td class="font-medium">5.150.000đ</td>
+                                        <td>01/01/2026</td>
+                                        <td><span class="badge badge-success">Đã thanh toán</span></td>
+                                        <td class="text-right">
+                                            <button class="btn btn-sm btn-outline"><i class="fas fa-eye"></i>
+                                                Xem</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tháng 12/2025</strong> <br><span
+                                                class="text-muted text-sm">P.102</span></td>
+                                        <td class="font-medium">5.050.000đ</td>
+                                        <td>01/12/2025</td>
+                                        <td><span class="badge badge-success">Đã thanh toán</span></td>
+                                        <td class="text-right">
+                                            <button class="btn btn-sm btn-outline"><i class="fas fa-eye"></i>
+                                                Xem</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

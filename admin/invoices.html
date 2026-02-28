@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hóa Đơn & Thu Tiền - RentNest Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+
+<body>
+
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-home text-primary"></i> RentNest Admin
+            </div>
+            <nav class="sidebar-nav">
+                <div class="px-3 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tổng quan</div>
+                <a href="dashboard.html" class="sidebar-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Quản lý Dữ
+                    liệu</div>
+                <a href="rooms.html" class="sidebar-link"><i class="fas fa-door-open"></i> Phòng & Giường</a>
+                <a href="tenants.html" class="sidebar-link"><i class="fas fa-users"></i> Khách Thuê</a>
+                <a href="contracts.html" class="sidebar-link"><i class="fas fa-file-signature"></i> Hợp Đồng</a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tài chính
+                </div>
+                <a href="services.html" class="sidebar-link"><i class="fas fa-plug"></i> Dịch Vụ & Điện Nước</a>
+                <a href="invoices.html" class="sidebar-link active"><i class="fas fa-file-invoice-dollar"></i> Hóa
+                    Đơn</a>
+                <a href="reports.html" class="sidebar-link"><i class="fas fa-chart-bar"></i> Báo Cáo</a>
+                <!-- ... other links ... -->
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="d-flex align-items-center gap-3">
+                    <button id="sidebarToggle" class="btn btn-icon d-lg-none"><i class="fas fa-bars"></i></button>
+                    <h2 class="m-0 font-semibold" style="font-size: 1.25rem;">Hóa Đơn & Thu Tiền</h2>
+                </div>
+            </header>
+
+            <div class="admin-content">
+
+                <div class="d-grid grid-cols-4 gap-4 mb-4">
+                    <div class="card p-3 border-left" style="border-left: 4px solid var(--info);">
+                        <div class="text-muted text-xs font-semibold text-uppercase mb-1">Tổng Hóa Đơn Tháng 2</div>
+                        <div class="font-bold text-lg text-main">45</div>
+                    </div>
+                    <div class="card p-3 border-left" style="border-left: 4px solid var(--success);">
+                        <div class="text-muted text-xs font-semibold text-uppercase mb-1">Đã Thu (Doanh thu)</div>
+                        <div class="font-bold text-lg text-success">145.500.000đ</div>
+                    </div>
+                    <div class="card p-3 border-left" style="border-left: 4px solid var(--danger);">
+                        <div class="text-muted text-xs font-semibold text-uppercase mb-1">Chưa Thu (Nợ)</div>
+                        <div class="font-bold text-lg text-danger">35.200.000đ</div>
+                    </div>
+                </div>
+
+                <div class="card p-0 mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <div class="d-flex gap-3">
+                            <select class="form-control form-control-sm" style="width: 150px;">
+                                <option>Tháng 02/2026</option>
+                                <option>Tháng 01/2026</option>
+                                <option>Tháng 12/2025</option>
+                            </select>
+                            <select class="form-control form-control-sm" style="width: 180px;">
+                                <option>Tất cả trạng thái</option>
+                                <option>Chưa gửi yêu cầu</option>
+                                <option>Chờ thanh toán (Nợ)</option>
+                                <option>Đã thanh toán (Thu đủ)</option>
+                            </select>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline" data-modal-target="generateModal"><i
+                                    class="fas fa-magic text-primary"></i> Chốt chỉ số & Sinh hóa đơn</button>
+                            <button class="btn btn-primary"><i class="fas fa-paper-plane"></i> Nhắc Nợ Đồng Loạt (Qua
+                                Zalo/Email)</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Cơ Sở</th>
+                                    <th>Phòng</th>
+                                    <th>Khách Thuê</th>
+                                    <th>Kỳ HĐ</th>
+                                    <th>Tiền Phòng</th>
+                                    <th>Điện Nước + DV</th>
+                                    <th>Tổng Phải Thu</th>
+                                    <th>Trạng Thái</th>
+                                    <th class="text-right">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Xuân Thủy</td>
+                                    <td><span class="font-medium text-primary">P.101</span></td>
+                                    <td>Nguyễn Văn A</td>
+                                    <td>02/2026</td>
+                                    <td>4.500k</td>
+                                    <td>700k</td>
+                                    <td class="font-bold text-danger text-lg">5.200.000đ</td>
+                                    <td><span class="badge badge-danger">Chờ thanh toán</span></td>
+                                    <td class="text-right">
+                                        <button class="btn btn-sm btn-outline" title="Chi tiết/Sửa"><i
+                                                class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline text-success"
+                                            title="Xác nhận đã thu tiền"><i class="fas fa-check"></i></button>
+                                        <button class="btn btn-sm btn-outline text-primary" title="Gửi nhắc nợ"><i
+                                                class="fas fa-bell"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Xuân Thủy</td>
+                                    <td><span class="font-medium text-primary">P.102</span></td>
+                                    <td>Trần Thị B</td>
+                                    <td>02/2026</td>
+                                    <td>5.000k</td>
+                                    <td>850k</td>
+                                    <td class="font-bold text-success text-lg">5.850.000đ</td>
+                                    <td><span class="badge badge-success">Đã thanh toán</span></td>
+                                    <td class="text-right">
+                                        <button class="btn btn-sm btn-outline" title="Xem/In"><i
+                                                class="fas fa-print"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cầu Giấy</td>
+                                    <td><span class="font-medium text-primary">Phòng 201</span></td>
+                                    <td>Lê Minh C</td>
+                                    <td>02/2026</td>
+                                    <td>6.500k</td>
+                                    <td>-</td>
+                                    <td class="font-bold text-muted text-lg">-</td>
+                                    <td><span class="badge badge-secondary">Chưa chốt số</span></td>
+                                    <td class="text-right">
+                                        <button class="btn btn-sm btn-outline" title="Chốt số thủ công"><i
+                                                class="fas fa-keyboard"></i> Nhập số</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Generate Invoices -->
+    <div class="modal-overlay" id="generateModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Sinh Hóa Đơn Hàng Loạt</h3>
+                <button class="modal-close" data-modal-close>&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation">
+                    <div class="alert alert-info py-2 text-sm">
+                        <i class="fas fa-info-circle"></i> Hệ thống sẽ tự động ghép Tiền Phòng cố định và các Dịch vụ
+                        của các phòng đang được thuê trong cơ sở được chọn để sinh cấu trúc Hóa Đơn nháp.
+                    </div>
+                    <div class="form-group mt-3">
+                        <label class="form-label">Chọn cơ sở áp dụng</label>
+                        <select class="form-control" required>
+                            <option value="">-- Cơ Sở Xuân Thủy --</option>
+                            <option value="">-- Cơ Sở Cầu Giấy --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tháng chốt sổ</label>
+                        <input type="month" class="form-control" value="2026-02" required>
+                    </div>
+
+                    <div class="modal-footer p-0 border-0 mt-4">
+                        <button type="button" class="btn btn-outline" data-modal-close>Hủy</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-cogs"></i> Sinh Hóa Đơn</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

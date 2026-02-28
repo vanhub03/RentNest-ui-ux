@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Phòng - RentNest</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+
+    <style>
+        .filter-sidebar {
+            background-color: var(--bg-surface);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            position: sticky;
+            top: 90px;
+        }
+
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-title {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .price-range {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .price-input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+        }
+    </style>
+</head>
+
+<body class="bg-alt">
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-home"></i> RentNest
+            </a>
+
+            <button class="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <nav class="navbar-menu d-flex align-items-center">
+                <ul class="navbar-nav">
+                    <li><a href="index.html" class="nav-link">Trang chủ</a></li>
+                    <li><a href="rooms.html" class="nav-link active">Xem Phòng</a></li>
+                    <li><a href="#" class="nav-link">Bảng giá Dịch vụ</a></li>
+                </ul>
+                <div class="nav-actions d-flex gap-2">
+                    <a href="login.html" class="btn btn-outline btn-sm">Đăng nhập</a>
+                    <a href="register.html" class="btn btn-primary btn-sm">Đăng ký</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="py-4">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <nav class="mb-4 text-muted text-sm">
+                <a href="index.html" class="text-muted"><i class="fas fa-home"></i> Trang chủ</a> /
+                <span class="text-primary font-medium">Danh sách phòng</span>
+            </nav>
+
+            <div class="d-grid gap-4" style="grid-template-columns: 280px 1fr;">
+
+                <!-- Sidebar Filters -->
+                <aside>
+                    <div class="filter-sidebar">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="m-0 font-bold" style="font-size: 1.25rem;">Bộ lọc</h3>
+                            <button class="btn btn-sm text-primary p-0">Xóa lộc</button>
+                        </div>
+
+                        <div class="filter-group">
+                            <div class="filter-title">Khu vực <i class="fas fa-chevron-down text-muted"
+                                    style="font-size: 0.75rem;"></i></div>
+                            <select class="form-control mb-2">
+                                <option>Hà Nội</option>
+                                <option>TP.HCM</option>
+                                <option>Đà Nẵng</option>
+                            </select>
+                            <select class="form-control">
+                                <option>Tất cả Quận/Huyện</option>
+                                <option>Cầu Giấy</option>
+                                <option>Đống Đa</option>
+                                <option>Thanh Xuân</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group border-top border-bottom py-3">
+                            <div class="filter-title">Mức giá</div>
+                            <label class="checkbox-label">
+                                <input type="radio" name="price" checked> Tất cả
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="radio" name="price"> Dưới 2 triệu
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="radio" name="price"> 2 - 4 triệu
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="radio" name="price"> Trên 4 triệu
+                            </label>
+
+                            <div class="mt-3">
+                                <div class="text-muted mb-2" style="font-size: 0.8rem;">Hoặc nhập giá (triệu):</div>
+                                <div class="price-range">
+                                    <input type="number" class="price-input" placeholder="Từ">
+                                    <span>-</span>
+                                    <input type="number" class="price-input" placeholder="Đến">
+                                </div>
+                                <button class="btn btn-outline btn-block btn-sm mt-2">Áp dụng</button>
+                            </div>
+                        </div>
+
+                        <div class="filter-group mt-3">
+                            <div class="filter-title">Loại phòng</div>
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked> Phòng trọ
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked> Chung cư mini / Studio
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox"> Căn hộ dịch vụ
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox"> Ký túc xá / Sleepbox
+                            </label>
+                        </div>
+
+                        <div class="filter-group border-top pt-3">
+                            <div class="filter-title">Tiện ích</div>
+                            <label class="checkbox-label"><input type="checkbox"> Máy lạnh</label>
+                            <label class="checkbox-label"><input type="checkbox"> Máy giặt</label>
+                            <label class="checkbox-label"><input type="checkbox"> Tủ lạnh</label>
+                            <label class="checkbox-label"><input type="checkbox"> Ban công</label>
+                            <label class="checkbox-label"><input type="checkbox"> Thang máy</label>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main Content (Room List) -->
+                <div>
+                    <!-- Top bar -->
+                    <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-surface border rounded"
+                        style="border-radius: var(--radius-lg); border: 1px solid var(--border-color);">
+                        <div>
+                            <h1 class="m-0 font-bold" style="font-size: 1.5rem;">Cho Thuê Phòng Trọ, Căn Hộ</h1>
+                            <p class="text-muted m-0" style="font-size: 0.875rem;">Hiển thị 1 - 9 trong số 124 kết quả
+                            </p>
+                        </div>
+                        <div class="d-flex gap-2 align-items-center">
+                            <span class="text-muted font-medium" style="font-size: 0.875rem;">Sắp xếp:</span>
+                            <select class="form-control" style="width: 180px;">
+                                <option>Mới nhất</option>
+                                <option>Giá thấp đến cao</option>
+                                <option>Giá cao đến thấp</option>
+                            </select>
+                            <div class="d-flex border rounded bg-surface overflow-hidden ml-2">
+                                <button class="btn btn-icon rounded-0 bg-primary text-white"><i
+                                        class="fas fa-th-large"></i></button>
+                                <button class="btn btn-icon rounded-0 text-muted"><i class="fas fa-list"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grid List -->
+                    <div class="d-grid grid-cols-3 gap-4 mb-4">
+                        <!-- Room 1 -->
+                        <div class="card room-card text-decoration-none">
+                            <a href="room-detail.html" style="color: inherit;">
+                                <div class="badge-overlay">
+                                    <span class="badge badge-success">Còn 2 phòng</span>
+                                </div>
+                                <div class="card-img-container">
+                                    <img src="https://images.unsplash.com/photo-1555541170-1361cddf01d0?w=600&auto=format&fit=crop"
+                                        alt="Room 1" class="card-img">
+                                </div>
+                                <div class="card-body p-3">
+                                    <div class="text-muted mb-1" style="font-size: 0.8rem;"><i
+                                            class="fas fa-map-marker-alt"></i> Cầu Giấy, Hà Nội</div>
+                                    <h4 class="font-semibold mb-2 text-truncate"
+                                        style="font-size: 1.1rem; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                        Studio Full Nội Thất Cửa Sổ Lớn</h4>
+                                    <div class="text-primary font-bold mb-3" style="font-size: 1.25rem;">4.500.000đ
+                                        <span class="text-muted"
+                                            style="font-size: 0.8rem; font-weight: normal;">/tháng</span></div>
+                                    <div class="d-flex justify-content-between text-muted"
+                                        style="font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+                                        <span><i class="fas fa-vector-square"></i> 30m²</span>
+                                        <span><i class="fas fa-bed"></i> 1 Giường</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Room 2 -->
+                        <div class="card room-card">
+                            <a href="room-detail.html" style="color: inherit;">
+                                <div class="badge-overlay">
+                                    <span class="badge badge-success">Còn trống</span>
+                                </div>
+                                <div class="card-img-container">
+                                    <img src="https://images.unsplash.com/photo-1522771732448-6dabd57cacc2?w=600&auto=format&fit=crop"
+                                        alt="Room 2" class="card-img">
+                                </div>
+                                <div class="card-body p-3">
+                                    <div class="text-muted mb-1" style="font-size: 0.8rem;"><i
+                                            class="fas fa-map-marker-alt"></i> Thanh Xuân, Hà Nội</div>
+                                    <h4 class="font-semibold mb-2 text-truncate"
+                                        style="font-size: 1.1rem; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                        Căn Hộ Dịch Vụ 1 Khách 1 Ngủ</h4>
+                                    <div class="text-primary font-bold mb-3" style="font-size: 1.25rem;">6.000.000đ
+                                        <span class="text-muted"
+                                            style="font-size: 0.8rem; font-weight: normal;">/tháng</span></div>
+                                    <div class="d-flex justify-content-between text-muted"
+                                        style="font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+                                        <span><i class="fas fa-vector-square"></i> 45m²</span>
+                                        <span><i class="fas fa-bed"></i> 1 PN</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Create another 4 mock rooms quickly... -->
+                        <div class="card room-card">
+                            <a href="room-detail.html" style="color: inherit;">
+                                <div class="badge-overlay">
+                                    <span class="badge badge-warning">Sắp trống</span>
+                                </div>
+                                <div class="card-img-container">
+                                    <img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?w=600&auto=format&fit=crop"
+                                        alt="Room 3" class="card-img">
+                                </div>
+                                <div class="card-body p-3">
+                                    <div class="text-muted mb-1" style="font-size: 0.8rem;"><i
+                                            class="fas fa-map-marker-alt"></i> Quận 1, TP.HCM</div>
+                                    <h4 class="font-semibold mb-2 text-truncate"
+                                        style="font-size: 1.1rem; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                        Phòng Trọ Giá Rẻ Trung Tâm</h4>
+                                    <div class="text-primary font-bold mb-3" style="font-size: 1.25rem;">3.200.000đ
+                                        <span class="text-muted"
+                                            style="font-size: 0.8rem; font-weight: normal;">/tháng</span></div>
+                                    <div class="d-flex justify-content-between text-muted"
+                                        style="font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+                                        <span><i class="fas fa-vector-square"></i> 20m²</span>
+                                        <span><i class="fas fa-bed"></i> Nệm</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card room-card">
+                            <a href="room-detail.html" style="color: inherit;">
+                                <div class="card-img-container">
+                                    <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&auto=format&fit=crop"
+                                        alt="Room 4" class="card-img">
+                                </div>
+                                <div class="card-body p-3">
+                                    <div class="text-muted mb-1" style="font-size: 0.8rem;"><i
+                                            class="fas fa-map-marker-alt"></i> Đống Đa, Hà Nội</div>
+                                    <h4 class="font-semibold mb-2 text-truncate"
+                                        style="font-size: 1.1rem; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                        Duplex Có Ban Công Mát Mẻ</h4>
+                                    <div class="text-primary font-bold mb-3" style="font-size: 1.25rem;">5.500.000đ
+                                        <span class="text-muted"
+                                            style="font-size: 0.8rem; font-weight: normal;">/tháng</span></div>
+                                    <div class="d-flex justify-content-between text-muted"
+                                        style="font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+                                        <span><i class="fas fa-vector-square"></i> 35m²</span>
+                                        <span><i class="fas fa-bed"></i> Gác xép</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card room-card">
+                            <a href="room-detail.html" style="color: inherit;">
+                                <div class="card-img-container">
+                                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&auto=format&fit=crop"
+                                        alt="Room 5" class="card-img">
+                                </div>
+                                <div class="card-body p-3">
+                                    <div class="text-muted mb-1" style="font-size: 0.8rem;"><i
+                                            class="fas fa-map-marker-alt"></i> Hai Bà Trưng, Hà Nội</div>
+                                    <h4 class="font-semibold mb-2 text-truncate"
+                                        style="font-size: 1.1rem; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                        Phòng Trọ An Ninh Khu Phố Cổ</h4>
+                                    <div class="text-primary font-bold mb-3" style="font-size: 1.25rem;">2.800.000đ
+                                        <span class="text-muted"
+                                            style="font-size: 0.8rem; font-weight: normal;">/tháng</span></div>
+                                    <div class="d-flex justify-content-between text-muted"
+                                        style="font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+                                        <span><i class="fas fa-vector-square"></i> 18m²</span>
+                                        <span><i class="fas fa-bed"></i> Giường đơn</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card room-card">
+                            <a href="room-detail.html" style="color: inherit;">
+                                <div class="card-img-container">
+                                    <img src="https://images.unsplash.com/photo-1502672260266-1c1de2d9d000?w=600&auto=format&fit=crop"
+                                        alt="Room 6" class="card-img">
+                                </div>
+                                <div class="card-body p-3">
+                                    <div class="text-muted mb-1" style="font-size: 0.8rem;"><i
+                                            class="fas fa-map-marker-alt"></i> Nam Từ Liêm, Hà Nội</div>
+                                    <h4 class="font-semibold mb-2 text-truncate"
+                                        style="font-size: 1.1rem; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                        Căn Hộ Mini Gần Bến Xe Mỹ Đình</h4>
+                                    <div class="text-primary font-bold mb-3" style="font-size: 1.25rem;">3.800.000đ
+                                        <span class="text-muted"
+                                            style="font-size: 0.8rem; font-weight: normal;">/tháng</span></div>
+                                    <div class="d-flex justify-content-between text-muted"
+                                        style="font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+                                        <span><i class="fas fa-vector-square"></i> 25m²</span>
+                                        <span><i class="fas fa-bed"></i> 1 Giường</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-center mt-5">
+                        <ul class="pagination">
+                            <li class="page-item disabled"><a class="page-link" href="#"><i
+                                        class="fas fa-chevron-left"></i></a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">12</a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" style="background-color: #1F2937; color: #9CA3AF; padding: 3rem 0; margin-top: auto;">
+        <div class="container text-center">
+            <p>&copy; 2026 RentNest.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
