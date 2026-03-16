@@ -1,0 +1,18 @@
+﻿On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   index.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	admin/components/
+	admin/hostels.html
+	admin/pages/
+	admin/pricing-plans.html
+	admin/users.html
+	angular_ready/
+	git_status.txt
+	landlord.html
+
+no changes added to commit (use "git add" and/or "git commit -a")

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users & Chủ Nhà - RentNest System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+
+<body>
+
+    <div class="admin-layout">
+        <!-- Sidebar Placeholder -->
+        <aside class="sidebar" style="background-color: #0F172A;">
+            <div class="sidebar-header border-bottom" style="border-color: rgba(255,255,255,0.05) !important;">
+                <i class="fas fa-shield-alt text-primary"></i> RentNest System
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="sidebar-link"><i class="fas fa-satellite-dish"></i> Hệ thống</a>
+                <a href="users.html" class="sidebar-link active"><i class="fas fa-user-shield"></i> Users & Chủ Nhà</a>
+                <!-- ... other links -->
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <!-- Header Placeholder -->
+            <header class="admin-header">
+                <div class="d-flex align-items-center gap-3">
+                    <h2 class="m-0 font-semibold" style="font-size: 1.25rem;">Quản Lý Người Dùng & Phê Duyệt KYC</h2>
+                </div>
+            </header>
+
+            <div class="admin-content p-4" style="background-color: var(--bg-alt); min-height: calc(100vh - 70px);">
+
+                <!-- Tab Navigation Mock -->
+                <div class="bg-white p-3 rounded-lg shadow-sm mb-4 d-flex gap-4">
+                    <button class="btn btn-primary">Chủ nhà cần duyệt (2)</button>
+                    <button class="btn btn-outline text-muted">Danh sách Landlords</button>
+                    <button class="btn btn-outline text-muted">Danh sách Tenants</button>
+                </div>
+
+                <!-- KYC Approvals List -->
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="table" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--border-color); text-align: left;">
+                                    <th class="p-3 text-muted font-medium">Họ Tên</th>
+                                    <th class="p-3 text-muted font-medium">Email / SĐT</th>
+                                    <th class="p-3 text-muted font-medium">Loại Tài Khoản</th>
+                                    <th class="p-3 text-muted font-medium">Mặt trước CCCD</th>
+                                    <th class="p-3 text-muted font-medium">Mặt sau CCCD</th>
+                                    <th class="p-3 text-muted font-medium text-right">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid var(--border-color);">
+                                    <td class="p-3 font-medium">Lê Trọng Đạt</td>
+                                    <td class="p-3">
+                                        <div>datle@email.com</div>
+                                        <div class="text-xs text-muted">0988.111.222</div>
+                                    </td>
+                                    <td class="p-3"><span class="badge badge-warning">Chủ nhà (Chưa duyệt)</span></td>
+                                    <td class="p-3">
+                                        <div class="kyc-preview"
+                                            style="width: 80px; height: 50px; background: #eee; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                                            <i class="fas fa-id-card text-muted"></i>
+                                        </div>
+                                    </td>
+                                    <td class="p-3">
+                                        <div class="kyc-preview"
+                                            style="width: 80px; height: 50px; background: #eee; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                                            <i class="fas fa-id-card text-muted"></i>
+                                        </div>
+                                    </td>
+                                    <td class="p-3 text-right">
+                                        <button class="btn btn-success btn-sm"><i class="fas fa-check"></i>
+                                            Duyệt</button>
+                                        <button class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Từ
+                                            chối</button>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--border-color);">
+                                    <td class="p-3 font-medium">Bùi Thị Tâm</td>
+                                    <td class="p-3">
+                                        <div>tambui.99@email.com</div>
+                                        <div class="text-xs text-muted">0912.333.444</div>
+                                    </td>
+                                    <td class="p-3"><span class="badge badge-warning">Chủ nhà (Chưa duyệt)</span></td>
+                                    <td class="p-3">
+                                        <div class="kyc-preview"
+                                            style="width: 80px; height: 50px; background: #eee; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                                            <i class="fas fa-id-card text-muted"></i>
+                                        </div>
+                                    </td>
+                                    <td class="p-3">
+                                        <div class="kyc-preview"
+                                            style="width: 80px; height: 50px; background: #eee; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                                            <i class="fas fa-id-card text-muted"></i>
+                                        </div>
+                                    </td>
+                                    <td class="p-3 text-right">
+                                        <button class="btn btn-success btn-sm"><i class="fas fa-check"></i>
+                                            Duyệt</button>
+                                        <button class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Từ
+                                            chối</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Khách Thuê Mới - RentNest Landlord</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <style>
+        .wizard-container {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        /* Stepper */
+        .stepper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .step-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            border: 3px solid var(--border-color);
+            background: var(--bg-surface);
+            color: var(--text-muted);
+            transition: all var(--transition-normal);
+            margin-bottom: 0.5rem;
+        }
+
+        .step.active .step-circle {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 0 4px rgba(15, 82, 186, 0.15);
+        }
+
+        .step.completed .step-circle {
+            border-color: var(--success);
+            background: var(--success);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-align: center;
+            max-width: 90px;
+        }
+
+        .step.active .step-label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .step.completed .step-label {
+            color: var(--success);
+        }
+
+        .step-line {
+            flex: 1;
+            height: 3px;
+            background: var(--border-color);
+            margin: 0 0.5rem;
+            align-self: flex-start;
+            margin-top: 22px;
+            transition: background var(--transition-normal);
+            max-width: 100px;
+        }
+
+        .step-line.completed {
+            background: var(--success);
+        }
+
+        /* Wizard Steps */
+        .wizard-step {
+            display: none;
+        }
+
+        .wizard-step.active {
+            display: block;
+            animation: fadeSlideIn 0.3s ease-out;
+        }
+
+        @keyframes fadeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .wizard-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .wizard-card-header {
+            padding: 1.25rem 1.75rem;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-alt);
+        }
+
+        .wizard-card-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .wizard-card-body {
+            padding: 1.75rem;
+        }
+
+        .wizard-footer {
+            padding: 1.25rem 1.75rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-alt);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Room selection card */
+        .room-select-card {
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .room-select-card:hover {
+            border-color: var(--primary-light);
+        }
+
+        .room-select-card.selected {
+            border-color: var(--primary);
+            background: rgba(15, 82, 186, 0.03);
+            box-shadow: 0 0 0 3px rgba(15, 82, 186, 0.1);
+        }
+
+        .room-select-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .room-select-card.selected .room-select-radio {
+            border-color: var(--primary);
+        }
+
+        .room-select-radio-inner {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+            transform: scale(0);
+            transition: transform var(--transition-fast);
+        }
+
+        .room-select-card.selected .room-select-radio-inner {
+            transform: scale(1);
+        }
+
+        .room-select-info {
+            flex: 1;
+        }
+
+        .room-select-price {
+            font-weight: 700;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+
+        /* Occupant Table */
+        .occupant-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .occupant-table thead th {
+            background: var(--bg-alt);
+            padding: 0.75rem 1rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .occupant-table thead th:first-child {
+            border-radius: var(--radius-md) 0 0 0;
+        }
+
+        .occupant-table thead th:last-child {
+            border-radius: 0 var(--radius-md) 0 0;
+            text-align: center;
+            width: 50px;
+        }
+
+        .occupant-table tbody td {
+            padding: 0.625rem 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+
+        .occupant-table .form-control {
+            font-size: 0.9rem;
+            padding: 0.5rem 0.75rem;
+        }
+
+        .occupant-table .rep-radio {
+            text-align: center;
+            padding-top: 0.75rem;
+        }
+
+        .occupant-table .rep-radio input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .btn-remove-row {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.35rem;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
+            font-size: 1rem;
+        }
+
+        .btn-remove-row:hover {
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.08);
+        }
+
+        .btn-add-occupant {
+            background: rgba(15, 82, 186, 0.06);
+            border: 1px dashed var(--primary-light);
+            color: var(--primary);
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all var(--transition-fast);
+            margin-top: 0.75rem;
+        }
+
+        .btn-add-occupant:hover {
+            background: rgba(15, 82, 186, 0.12);
+            border-color: var(--primary);
+        }
+
+        .rep-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(15, 82, 186, 0.1);
+            color: var(--primary);
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-full);
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Summary sections */
+        .summary-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .summary-row span:first-child {
+            color: var(--text-muted);
+        }
+
+        .summary-row span:last-child {
+            font-weight: 500;
+        }
+
+        .occupant-summary-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.625rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .occupant-summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .occupant-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .app-link-note {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.06), rgba(139, 92, 246, 0.02));
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .app-link-note i {
+            color: #8B5CF6;
+            margin-top: 2px;
+            font-size: 1.1rem;
+        }
+
+        .cccd-upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            background: var(--bg-alt);
+            transition: border-color var(--transition-fast);
+        }
+
+        .cccd-upload-area:hover {
+            border-color: var(--primary-light);
+        }
+
+        /* Success state */
+        .success-page {
+            display: none;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .success-page.show {
+            display: block;
+        }
+
+        .success-big-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            animation: successPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .success-big-icon i {
+            font-size: 3rem;
+            color: var(--success);
+        }
+
+        @keyframes successPop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stepper {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .step-line {
+                display: none;
+            }
+
+            .wizard-card-body {
+                padding: 1.25rem;
+            }
+
+            .occupant-table {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-home text-primary"></i> RentNest Landlord
+            </div>
+            <nav class="sidebar-nav">
+                <div class="px-3 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tổng quan</div>
+                <a href="dashboard.html" class="sidebar-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Quản lý Dữ
+                    liệu</div>
+                <a href="rooms.html" class="sidebar-link"><i class="fas fa-door-open"></i> Phòng & Giường</a>
+                <a href="tenants.html" class="sidebar-link active"><i class="fas fa-users"></i> Khách Thuê</a>
+                <a href="contracts.html" class="sidebar-link"><i class="fas fa-file-signature"></i> Hợp Đồng</a>
+                <a href="rental-requests.html" class="sidebar-link">
+                    <i class="fas fa-inbox"></i> Yêu Cầu Thuê
+                    <span class="badge badge-danger text-white"
+                        style="margin-left: auto; font-size: 0.65rem; padding: 0.2em 0.5em;">3</span>
+                </a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tài chính
+                </div>
+                <a href="services.html" class="sidebar-link"><i class="fas fa-plug"></i> Dịch Vụ & Điện Nước</a>
+                <a href="invoices.html" class="sidebar-link"><i class="fas fa-file-invoice-dollar"></i> Hóa Đơn</a>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="d-flex align-items-center gap-3">
+                    <button id="sidebarToggle" class="btn btn-icon d-lg-none"><i class="fas fa-bars"></i></button>
+                    <a href="rooms.html" class="btn btn-icon" style="color: var(--text-muted);"><i
+                            class="fas fa-arrow-left"></i></a>
+                    <h2 class="m-0 font-semibold" style="font-size: 1.25rem;">Thêm Khách Thuê Mới</h2>
+                </div>
+            </header>
+
+            <div class="admin-content" style="padding: 2rem 1.5rem;">
+                <div class="wizard-container">
+
+                    <!-- Stepper -->
+                    <div class="stepper" id="stepper">
+                        <div class="step active" data-step="1">
+                            <div class="step-circle">1</div>
+                            <div class="step-label">Chọn Phòng</div>
+                        </div>
+                        <div class="step-line" id="line1"></div>
+                        <div class="step" data-step="2">
+                            <div class="step-circle">2</div>
+                            <div class="step-label">Người ở</div>
+                        </div>
+                        <div class="step-line" id="line2"></div>
+                        <div class="step" data-step="3">
+                            <div class="step-circle">3</div>
+                            <div class="step-label">Hợp đồng & Cọc</div>
+                        </div>
+                        <div class="step-line" id="line3"></div>
+                        <div class="step" data-step="4">
+                            <div class="step-circle">4</div>
+                            <div class="step-label">Xác nhận</div>
+                        </div>
+                    </div>
+
+                    <!-- ==================== STEP 1: Chọn Phòng ==================== -->
+                    <div class="wizard-step active" id="wizardStep1">
+                        <div class="wizard-card">
+                            <div class="wizard-card-header">
+                                <h3><i class="fas fa-door-open text-primary"></i> Chọn Phòng Trống</h3>
+                            </div>
+                            <div class="wizard-card-body">
+                                <!-- Hostel filter -->
+                                <div class="form-group">
+                                    <label class="form-label">Cơ sở (Hostel)</label>
+                                    <select class="form-control" id="hostelFilter">
+                                        <option value="all">Tất cả cơ sở</option>
+                                        <option value="xuan-thuy" selected>Cơ sở Xuân Thủy — Cầu Giấy, HN</option>
+                                        <option value="cau-giay">Cơ sở Cầu Giấy — Kim Mã, HN</option>
+                                    </select>
+                                </div>
+
+                                <label class="form-label mb-2">Phòng trống <span class="text-muted text-xs">(2
+                                        phòng)</span></label>
+
+                                <!-- Room list -->
+                                <div class="d-flex flex-column gap-3">
+                                    <div class="room-select-card selected" onclick="selectRoom(this, 'P.102')">
+                                        <div class="room-select-radio">
+                                            <div class="room-select-radio-inner"></div>
+                                        </div>
+                                        <div class="room-select-info">
+                                            <div class="font-semibold">P.102 — Studio Có Ban Công</div>
+                                            <div class="text-muted text-sm">35m² · Tầng 1 · 1 phòng tắm</div>
+                                        </div>
+                                        <div class="room-select-price">5.000.000đ<span class="text-muted"
+                                                style="font-weight: 400; font-size: 0.8rem;">/th</span></div>
+                                    </div>
+
+                                    <div class="room-select-card" onclick="selectRoom(this, 'P.201')">
+                                        <div class="room-select-radio">
+                                            <div class="room-select-radio-inner"></div>
+                                        </div>
+                                        <div class="room-select-info">
+                                            <div class="font-semibold">P.201 — Căn hộ 1 Phòng Ngủ</div>
+                                            <div class="text-muted text-sm">45m² · Tầng 2 · 1 phòng tắm</div>
+                                        </div>
+                                        <div class="room-select-price">6.500.000đ<span class="text-muted"
+                                                style="font-weight: 400; font-size: 0.8rem;">/th</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wizard-footer">
+                                <a href="rooms.html" class="btn btn-outline"><i class="fas fa-times"></i> Hủy bỏ</a>
+                                <button class="btn btn-primary" onclick="goToStep(2)">Tiếp theo <i
+                                        class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==================== STEP 2: Danh sách Occupant ==================== -->
+                    <div class="wizard-step" id="wizardStep2">
+                        <div class="wizard-card">
+                            <div class="wizard-card-header">
+                                <h3><i class="fas fa-users text-primary"></i> Danh sách Người ở trong Phòng</h3>
+                                <p class="text-muted text-sm m-0 mt-1">Thêm tất cả người sẽ ở trong phòng. Tick
+                                    <strong>"Đại diện"</strong> cho 1 người đứng tên ký hợp đồng.
+                                </p>
+                            </div>
+                            <div class="wizard-card-body" style="padding: 0;">
+                                <div style="overflow-x: auto;">
+                                    <table class="occupant-table" id="occupantTable">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 40px;">#</th>
+                                                <th>Họ và Tên <span class="text-danger">*</span></th>
+                                                <th>Số điện thoại <span class="text-danger">*</span></th>
+                                                <th>CCCD <span class="text-muted text-xs">(tùy chọn)</span></th>
+                                                <th style="text-align: center; width: 80px;">Đại diện</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="occupantBody">
+                                            <tr>
+                                                <td class="text-center text-muted font-medium">1</td>
+                                                <td><input type="text" class="form-control" name="occ_name[]"
+                                                        placeholder="Nguyễn Văn A" required></td>
+                                                <td><input type="tel" class="form-control" name="occ_phone[]"
+                                                        placeholder="0987 123 456" required></td>
+                                                <td><input type="text" class="form-control" name="occ_cccd[]"
+                                                        placeholder="001099012345"></td>
+                                                <td class="rep-radio"><input type="radio" name="representative"
+                                                        value="0" checked title="Người đại diện ký HĐ"></td>
+                                                <td class="text-center">
+                                                    <button class="btn-remove-row" onclick="removeOccupant(this)"
+                                                        title="Xóa" disabled><i class="fas fa-trash-alt"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="padding: 0 1.75rem 1.25rem;">
+                                    <button class="btn-add-occupant" onclick="addOccupant()">
+                                        <i class="fas fa-plus-circle"></i> Thêm người ở
+                                    </button>
+                                </div>
+
+                                <!-- CCCD Upload (optional, for representative) -->
+                                <div style="padding: 0 1.75rem 1.5rem;">
+                                    <label class="form-label d-flex justify-content-between">
+                                        <span><i class="fas fa-id-card text-primary" style="margin-right: 6px;"></i>Ảnh
+                                            CCCD người đại diện <span class="text-muted text-xs">(tùy
+                                                chọn)</span></span>
+                                        <span class="text-xs text-muted">2 mặt · JPG/PNG</span>
+                                    </label>
+                                    <div class="d-grid grid-cols-2 gap-3">
+                                        <div class="cccd-upload-area">
+                                            <i class="fas fa-id-card text-muted mb-1" style="font-size: 1.25rem;"></i>
+                                            <div class="text-sm font-medium">Mặt trước</div>
+                                            <div class="text-xs text-muted">Click để chọn ảnh</div>
+                                        </div>
+                                        <div class="cccd-upload-area">
+                                            <i class="fas fa-id-card text-muted mb-1" style="font-size: 1.25rem;"></i>
+                                            <div class="text-sm font-medium">Mặt sau</div>
+                                            <div class="text-xs text-muted">Click để chọn ảnh</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wizard-footer">
+                                <button class="btn btn-outline" onclick="goToStep(1)"><i class="fas fa-arrow-left"></i>
+                                    Quay lại</button>
+                                <button class="btn btn-primary" onclick="goToStep(3)">Tiếp theo <i
+                                        class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==================== STEP 3: Hợp đồng & Cọc ==================== -->
+                    <div class="wizard-step" id="wizardStep3">
+                        <div class="wizard-card">
+                            <div class="wizard-card-header">
+                                <h3><i class="fas fa-file-signature text-primary"></i> Hợp Đồng & Tiền Cọc</h3>
+                            </div>
+                            <div class="wizard-card-body">
+                                <!-- Representative auto-filled -->
+                                <div class="d-flex align-items-center gap-3 p-3 mb-4"
+                                    style="background: rgba(15,82,186,0.04); border: 1px solid rgba(15,82,186,0.12); border-radius: var(--radius-md);">
+                                    <div
+                                        style="width: 40px; height: 40px; border-radius: 50%; background: rgba(15,82,186,0.1); display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                                        <i class="fas fa-user-check"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs text-muted">Người đại diện ký hợp đồng</div>
+                                        <div class="font-bold" id="contractRepName">— (sẽ tự fill từ bước 2)</div>
+                                    </div>
+                                    <span class="rep-badge" style="margin-left: auto;"><i class="fas fa-star"></i> Đại
+                                        diện</span>
+                                </div>
+
+                                <div class="d-grid grid-cols-2 gap-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Ngày bắt đầu <span
+                                                class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" id="startDate" value="2026-04-01"
+                                            required>
+                                        <div class="text-xs text-muted mt-1">Contract.startDate</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Ngày kết thúc</label>
+                                        <input type="date" class="form-control" id="endDate" value="2027-03-31">
+                                        <div class="text-xs text-muted mt-1">Contract.endDate (để trống = vô thời hạn)
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid grid-cols-2 gap-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Tiền cọc đã nhận <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="depositAmount"
+                                            placeholder="VD: 5,000,000" value="5,000,000" required>
+                                        <div class="text-xs text-muted mt-1">Contract.depositAmount</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Hình thức nhận cọc</label>
+                                        <select class="form-control" id="depositMethod">
+                                            <option value="CASH">Tiền mặt</option>
+                                            <option value="BANK_TRANSFER">Chuyển khoản ngân hàng</option>
+                                            <option value="VNPAY">VNPay</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Upload contract file -->
+                                <div class="form-group">
+                                    <label class="form-label"><i class="fas fa-file-pdf text-danger"
+                                            style="margin-right: 6px;"></i>Upload file hợp đồng <span
+                                            class="text-muted text-xs">(tùy chọn — scan bản ký tay)</span></label>
+                                    <div class="cccd-upload-area" style="padding: 1rem;">
+                                        <i class="fas fa-cloud-upload-alt text-muted mb-1"
+                                            style="font-size: 1.5rem;"></i>
+                                        <div class="text-sm font-medium">Kéo thả file hoặc click để chọn</div>
+                                        <div class="text-xs text-muted">PDF, JPG, PNG — Tối đa 10MB</div>
+                                    </div>
+                                    <div class="text-xs text-muted mt-1">Contract.contractFileUrl</div>
+                                </div>
+
+                                <!-- Quick actions -->
+                                <div class="d-flex gap-3">
+                                    <button class="btn btn-outline flex-1"><i class="fas fa-print"></i> In Hợp Đồng
+                                        Giấy</button>
+                                    <button class="btn btn-outline flex-1"><i class="fas fa-download"></i> Tải Mẫu
+                                        PDF</button>
+                                </div>
+                            </div>
+                            <div class="wizard-footer">
+                                <button class="btn btn-outline" onclick="goToStep(2)"><i class="fas fa-arrow-left"></i>
+                                    Quay lại</button>
+                                <button class="btn btn-primary" onclick="goToStep(4)">Tiếp theo <i
+                                        class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==================== STEP 4: Xác nhận & Kích hoạt ==================== -->
+                    <div class="wizard-step" id="wizardStep4">
+                        <div class="wizard-card">
+                            <div class="wizard-card-header">
+                                <h3><i class="fas fa-clipboard-check text-primary"></i> Xác Nhận & Kích Hoạt</h3>
+                            </div>
+                            <div class="wizard-card-body">
+                                <!-- Room summary -->
+                                <div class="summary-section">
+                                    <div class="summary-title"><i class="fas fa-door-open"
+                                            style="margin-right: 6px;"></i>Phòng</div>
+                                    <div class="summary-row">
+                                        <span>Phòng</span>
+                                        <span class="text-primary font-bold" id="sumRoom">P.102 — Studio Có Ban
+                                            Công</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Cơ sở</span>
+                                        <span>Xuân Thủy, Cầu Giấy, HN</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Giá thuê</span>
+                                        <span>5.000.000đ / tháng</span>
+                                    </div>
+                                </div>
+
+                                <!-- Occupants summary -->
+                                <div class="summary-section">
+                                    <div class="summary-title"><i class="fas fa-users"
+                                            style="margin-right: 6px;"></i>Người ở (<span id="sumOccCount">1</span>
+                                        người)</div>
+                                    <div id="sumOccupants">
+                                        <!-- filled by JS -->
+                                    </div>
+                                </div>
+
+                                <!-- Contract summary -->
+                                <div class="summary-section">
+                                    <div class="summary-title"><i class="fas fa-file-signature"
+                                            style="margin-right: 6px;"></i>Hợp đồng</div>
+                                    <div class="summary-row">
+                                        <span>Người đại diện ký HĐ</span>
+                                        <span class="font-bold" id="sumRepName">—</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Thời hạn</span>
+                                        <span id="sumDuration">01/04/2026 → 31/03/2027</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Tiền cọc đã nhận</span>
+                                        <span class="text-success font-bold" id="sumDeposit">5.000.000đ</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Hình thức nhận cọc</span>
+                                        <span id="sumDepositMethod">Tiền mặt</span>
+                                    </div>
+                                </div>
+
+                                <!-- App link note -->
+                                <div class="app-link-note">
+                                    <i class="fas fa-magic"></i>
+                                    <div>
+                                        <div class="font-semibold text-sm" style="color: #7C3AED;">Tự động liên kết App
+                                        </div>
+                                        <div class="text-sm text-muted mt-1">Khách có thể tải App <strong>bất kỳ lúc
+                                                nào</strong>, đăng ký bằng đúng SĐT đã nhập ở trên → hệ thống tự động
+                                            nhận diện và link tài khoản vào phòng. Không cần gửi link hay mời tải App!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wizard-footer">
+                                <button class="btn btn-outline" onclick="goToStep(3)"><i class="fas fa-arrow-left"></i>
+                                    Quay lại</button>
+                                <button class="btn btn-lg" id="activateBtn" onclick="activateTenant()"
+                                    style="background: linear-gradient(135deg, var(--success), #059669); color: white; box-shadow: 0 4px 14px rgba(16,185,129,0.3);">
+                                    <i class="fas fa-check-circle"></i> Kích Hoạt Phòng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==================== SUCCESS PAGE ==================== -->
+                    <div class="success-page" id="successPage">
+                        <div class="success-big-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2 class="font-bold mb-2" style="font-size: 1.5rem; color: var(--success);">Kích Hoạt Thành
+                            Công!</h2>
+                        <p class="text-muted mb-4">Phòng đã chuyển trạng thái <strong>ĐANG THUÊ</strong> (OCCUPIED).</p>
+
+                        <div class="card p-4 mb-4 text-left"
+                            style="max-width: 480px; margin: 0 auto; border: 1px solid rgba(16,185,129,0.2); background: rgba(16,185,129,0.03);">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div
+                                    style="width: 48px; height: 48px; border-radius: var(--radius-md); background: rgba(15,82,186,0.1); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.25rem;">
+                                    <i class="fas fa-door-open"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold" id="successRoom">P.102 — Studio Có Ban Công</div>
+                                    <div class="d-flex align-items-center gap-2 mt-1">
+                                        <span class="badge badge-info text-white"
+                                            style="text-decoration: line-through; opacity: 0.5;">AVAILABLE</span>
+                                        <i class="fas fa-arrow-right text-muted" style="font-size: 0.75rem;"></i>
+                                        <span class="badge badge-success">OCCUPIED</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="successOccupants">
+                                <!-- filled by JS -->
+                            </div>
+                            <div class="d-flex justify-content-between py-2"
+                                style="border-top: 1px solid var(--border-color); font-size: 0.9rem;">
+                                <span class="text-muted">Tiền cọc</span>
+                                <span class="font-bold text-success" id="successDeposit">5.000.000đ</span>
+                            </div>
+                        </div>
+
+                        <!-- App magic note -->
+                        <div class="app-link-note mb-4"
+                            style="max-width: 480px; margin: 0 auto 1.5rem; text-align: left;">
+                            <i class="fas fa-magic"></i>
+                            <div>
+                                <div class="font-semibold text-sm" style="color: #7C3AED;">✨ Auto-link bằng SĐT</div>
+                                <div class="text-sm text-muted mt-1">Khi khách tải App và đăng ký bằng SĐT đã nhập →
+                                    phòng tự hiện lên trong App. Không cần mời hay gửi link!</div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-3 justify-content-center">
+                            <a href="rooms.html" class="btn btn-primary btn-lg"><i class="fas fa-th-list"></i> Quản lý
+                                Phòng</a>
+                            <a href="tenants.html" class="btn btn-outline btn-lg"><i class="fas fa-users"></i> Danh sách
+                                Khách</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        let occupantCount = 1;
+        let selectedRoom = 'P.102';
+
+        function selectRoom(el, roomId) {
+            document.querySelectorAll('.room-select-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedRoom = roomId;
+        }
+
+        function addOccupant() {
+            occupantCount++;
+            const tbody = document.getElementById('occupantBody');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="text-center text-muted font-medium">${occupantCount}</td>
+                <td><input type="text" class="form-control" name="occ_name[]" placeholder="Họ và tên" required></td>
+                <td><input type="tel" class="form-control" name="occ_phone[]" placeholder="Số điện thoại" required></td>
+                <td><input type="text" class="form-control" name="occ_cccd[]" placeholder="Số CCCD"></td>
+                <td class="rep-radio"><input type="radio" name="representative" value="${occupantCount - 1}" title="Người đại diện ký HĐ"></td>
+                <td class="text-center"><button class="btn-remove-row" onclick="removeOccupant(this)" title="Xóa"><i class="fas fa-trash-alt"></i></button></td>
+            `;
+            tbody.appendChild(tr);
+            updateRowNumbers();
+            updateRemoveButtons();
+        }
+
+        function removeOccupant(btn) {
+            const row = btn.closest('tr');
+            const wasChecked = row.querySelector('input[type="radio"]').checked;
+            row.remove();
+            occupantCount--;
+            updateRowNumbers();
+            updateRemoveButtons();
+            // If removed row was representative, auto-select first
+            if (wasChecked) {
+                const firstRadio = document.querySelector('#occupantBody input[type="radio"]');
+                if (firstRadio) firstRadio.checked = true;
+            }
+        }
+
+        function updateRowNumbers() {
+            const rows = document.querySelectorAll('#occupantBody tr');
+            rows.forEach((row, i) => {
+                row.querySelector('td:first-child').textContent = i + 1;
+                row.querySelector('input[type="radio"]').value = i;
+            });
+        }
+
+        function updateRemoveButtons() {
+            const btns = document.querySelectorAll('#occupantBody .btn-remove-row');
+            btns.forEach(btn => btn.disabled = (btns.length <= 1));
+        }
+
+        function getOccupants() {
+            const rows = document.querySelectorAll('#occupantBody tr');
+            const occupants = [];
+            rows.forEach((row, i) => {
+                const name = row.querySelector('input[name="occ_name[]"]').value || `Người ${i + 1}`;
+                const phone = row.querySelector('input[name="occ_phone[]"]').value || '—';
+                const cccd = row.querySelector('input[name="occ_cccd[]"]').value || '—';
+                const isRep = row.querySelector('input[type="radio"]').checked;
+                occupants.push({ name, phone, cccd, isRep });
+            });
+            return occupants;
+        }
+
+        function goToStep(stepNum) {
+            // Hide all steps
+            document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+            document.getElementById('wizardStep' + stepNum).classList.add('active');
+
+            // Update stepper UI
+            const steps = document.querySelectorAll('.step');
+            const lines = document.querySelectorAll('.step-line');
+
+            steps.forEach((step, i) => {
+                const num = i + 1;
+                step.classList.remove('active', 'completed');
+                if (num < stepNum) {
+                    step.classList.add('completed');
+                    step.querySelector('.step-circle').innerHTML = '<i class="fas fa-check"></i>';
+                } else if (num === stepNum) {
+                    step.classList.add('active');
+                    step.querySelector('.step-circle').textContent = num;
+                } else {
+                    step.querySelector('.step-circle').textContent = num;
+                }
+            });
+
+            lines.forEach((line, i) => {
+                line.classList.toggle('completed', i < stepNum - 1);
+            });
+
+            // Step 3: fill representative name
+            if (stepNum === 3) {
+                const occs = getOccupants();
+                const rep = occs.find(o => o.isRep) || occs[0];
+                document.getElementById('contractRepName').textContent = rep ? rep.name : '—';
+            }
+
+            // Step 4: fill summary
+            if (stepNum === 4) {
+                populateSummary();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function populateSummary() {
+            const occs = getOccupants();
+            const rep = occs.find(o => o.isRep) || occs[0];
+
+            // Room
+            const roomCards = document.querySelectorAll('.room-select-card');
+            const selectedCard = document.querySelector('.room-select-card.selected');
+            if (selectedCard) {
+                document.getElementById('sumRoom').textContent = selectedCard.querySelector('.font-semibold').textContent;
+            }
+
+            // Occupants count
+            document.getElementById('sumOccCount').textContent = occs.length;
+
+            // Occupants list
+            const sumDiv = document.getElementById('sumOccupants');
+            sumDiv.innerHTML = '';
+            occs.forEach((occ, i) => {
+                sumDiv.innerHTML += `
+                    <div class="occupant-summary-item">
+                        <div class="occupant-num">${i + 1}</div>
+                        <div style="flex: 1;">
+                            <div class="font-medium">${occ.name} ${occ.isRep ? '<span class="rep-badge"><i class="fas fa-star"></i> Đại diện</span>' : ''}</div>
+                            <div class="text-muted text-sm">${occ.phone}${occ.cccd !== '—' ? ' · CCCD: ' + occ.cccd : ''}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Contract
+            document.getElementById('sumRepName').textContent = rep ? rep.name : '—';
+
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const fmtDate = (d) => { const p = d.split('-'); return `${p[2]}/${p[1]}/${p[0]}`; };
+            document.getElementById('sumDuration').textContent = endDate
+                ? `${fmtDate(startDate)} → ${fmtDate(endDate)}`
+                : `${fmtDate(startDate)} → Vô thời hạn`;
+
+            document.getElementById('sumDeposit').textContent = document.getElementById('depositAmount').value + 'đ';
+            const methodSelect = document.getElementById('depositMethod');
+            document.getElementById('sumDepositMethod').textContent = methodSelect.options[methodSelect.selectedIndex].text;
+        }
+
+        function activateTenant() {
+            const btn = document.getElementById('activateBtn');
+            btn.innerHTML = '<div class="spinner" style="width:1.25rem;height:1.25rem;border-width:3px;border-top-color:white;"></div> Đang kích hoạt...';
+            btn.disabled = true;
+            btn.style.opacity = '0.8';
+
+            setTimeout(() => {
+                document.getElementById('wizardStep4').style.display = 'none';
+                document.querySelector('.stepper').style.display = 'none';
+
+                // Fill success page
+                const selectedCard = document.querySelector('.room-select-card.selected');
+                if (selectedCard) {
+                    document.getElementById('successRoom').textContent = selectedCard.querySelector('.font-semibold').textContent;
+                }
+                document.getElementById('successDeposit').textContent = document.getElementById('depositAmount').value + 'đ';
+
+                const occs = getOccupants();
+                const successDiv = document.getElementById('successOccupants');
+                successDiv.innerHTML = '';
+                occs.forEach((occ) => {
+                    successDiv.innerHTML += `
+                        <div class="d-flex justify-content-between py-2" style="border-top: 1px solid var(--border-color); font-size: 0.9rem;">
+                            <span class="text-muted">${occ.isRep ? '⭐ ' : ''}${occ.name}</span>
+                            <span class="font-medium">${occ.phone}</span>
+                        </div>
+                    `;
+                });
+
+                document.getElementById('successPage').classList.add('show');
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>

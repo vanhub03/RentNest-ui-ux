@@ -1,0 +1,18 @@
+<div class="floating-chat-container">
+    <a href="tel:19001234" class="float-btn btn-call" data-tooltip="Gọi Hotline ngay">
+        <i class="fas fa-phone-alt"></i>
+        <div class="pulse-ring"></div>
+    </a>
+
+    <a href="https://zalo.me/0988111222" target="_blank" class="float-btn btn-zalo" data-tooltip="Chat Zalo">
+        <i class="fas fa-comment-dots"></i>
+        <div class="pulse-ring" style="animation-delay: 0.5s;"></div>
+    </a>
+
+    <!-- Optional Messenger -->
+    <a *ngIf="showMessenger" href="https://messenger.com" target="_blank" class="float-btn btn-messenger"
+        data-tooltip="Messenger">
+        <i class="fab fa-facebook-messenger"></i>
+        <div class="pulse-ring" style="animation-delay: 1s;"></div>
+    </a>
+</div>

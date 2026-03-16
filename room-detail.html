@@ -275,21 +275,92 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-primary btn-block btn-lg mb-2"
-                            onclick="RentNestUI.showToast('Yêu cầu giữ phòng đã được gửi đến chủ nhà!', 'success')">
-                            Yêu cầu giữ phòng ngay
+                        <button class="btn btn-primary btn-block btn-lg mb-2" data-modal-target="bookingRequestModal">
+                            <i class="fas fa-paper-plane"></i> Gửi Yêu Cầu Thuê / Đặt Cọc
                         </button>
                         <button class="btn btn-outline btn-block btn-lg" style="color: #10B981; border-color: #10B981;">
                             <i class="fab fa-whatsapp"></i> Chat Zalo Chủ Nhà
                         </button>
 
                         <p class="text-center text-muted mt-3" style="font-size: 0.75rem;">Bạn sẽ không bị trừ tiền khi
-                            nhấn nút giữ phòng.</p>
+                            nhấn nút. Chủ nhà sẽ xem xét và phản hồi trong vòng 24h.</p>
                     </div>
                 </aside>
             </div>
         </div>
     </main>
+
+    <!-- Booking Request Modal -->
+    <div class="modal-overlay" id="bookingRequestModal">
+        <div class="modal" style="max-width: 560px;">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-paper-plane text-primary" style="margin-right: 8px;"></i>Gửi
+                    Yêu Cầu Thuê Phòng</h3>
+                <button class="modal-close" data-modal-close>&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Room Summary -->
+                <div class="d-flex align-items-center gap-3 mb-4 p-3 rounded"
+                    style="background: linear-gradient(135deg, rgba(15,82,186,0.06), rgba(15,82,186,0.02)); border: 1px solid rgba(15,82,186,0.1); border-radius: var(--radius-md);">
+                    <img src="https://images.unsplash.com/photo-1555541170-1361cddf01d0?w=200&auto=format&fit=crop"
+                        style="width: 60px; height: 60px; border-radius: var(--radius-md); object-fit: cover;">
+                    <div>
+                        <div class="font-semibold">Studio Full Nội Thất Có Cửa Sổ</div>
+                        <div class="text-primary font-bold">4.500.000đ<span class="text-muted"
+                                style="font-weight: normal; font-size: 0.85rem;">/tháng</span></div>
+                    </div>
+                </div>
+
+                <form class="needs-validation" id="bookingRequestForm">
+                    <div class="d-grid grid-cols-2 gap-3 mb-3">
+                        <div class="form-group mb-0">
+                            <label class="form-label">Họ và Tên <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="fullName" placeholder="Nguyễn Văn A" required>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label class="form-label">Số điện thoại <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control" name="phone" placeholder="0987 123 456" required>
+                        </div>
+                    </div>
+                    <div class="d-grid grid-cols-2 gap-3 mb-3">
+                        <div class="form-group mb-0">
+                            <label class="form-label">CMND / CCCD <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="cccd" placeholder="001099012345" required>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="email@gmail.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ngày muốn dọn vào <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" name="moveInDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Lời nhắn cho Chủ nhà</label>
+                        <textarea class="form-control" name="message" rows="3"
+                            placeholder="VD: Em muốn thuê dài hạn, hiện tại đang là sinh viên năm 3 ĐH Quốc gia..."></textarea>
+                    </div>
+
+                    <div class="p-3 rounded mb-3"
+                        style="background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); border-radius: var(--radius-md);">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fas fa-info-circle text-warning"></i>
+                            <span class="text-sm">Bạn sẽ <strong>không bị trừ tiền</strong> khi gửi yêu cầu. Tiền cọc
+                                chỉ thanh toán sau khi chủ nhà duyệt và bạn ký hợp đồng.</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-outline flex-1" data-modal-close>Hủy bỏ</button>
+                        <button type="submit" class="btn btn-primary flex-1" style="flex: 2;">
+                            <i class="fas fa-paper-plane"></i> Gửi Yêu Cầu Thuê
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer" style="background-color: #1F2937; color: #9CA3AF; padding: 3rem 0; margin-top: auto;">

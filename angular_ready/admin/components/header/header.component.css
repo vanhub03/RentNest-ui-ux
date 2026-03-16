@@ -1,0 +1,20 @@
+/* --- Admin Header Specifics --- */
+.admin-header {
+    height: 70px;
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    width: 100%;
+}
+
+@media (max-width: 991px) {
+    .admin-header {
+        padding: 0 1rem;
+    }
+}

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Yêu Cầu Thuê - RentNest Landlord</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <style>
+        .detail-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .profile-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #0F52BA, #4A81D4);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            color: white;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto 1rem;
+        }
+
+        .profile-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-badges {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 0.75rem;
+        }
+
+        .profile-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .info-list {
+            padding: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 0.875rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-md);
+            background: rgba(15, 82, 186, 0.08);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .info-value {
+            font-weight: 500;
+        }
+
+        .message-box {
+            background: var(--bg-alt);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .message-box p {
+            margin: 0;
+            line-height: 1.6;
+            color: var(--text-main);
+            font-style: italic;
+        }
+
+        .room-summary-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: sticky;
+            top: 90px;
+        }
+
+        .room-summary-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .room-summary-body {
+            padding: 1.5rem;
+        }
+
+        .room-meta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .room-meta-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .room-meta-value {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        .room-meta-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .action-buttons {
+            padding: 1.25rem 1.5rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .btn-approve-lg {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all var(--transition-normal);
+        }
+
+        .btn-approve-lg:hover {
+            background: #059669;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-reject-lg {
+            background: transparent;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all var(--transition-normal);
+        }
+
+        .btn-reject-lg:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .timeline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .detail-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .room-summary-card {
+                position: static;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-home text-primary"></i> RentNest Landlord
+            </div>
+            <nav class="sidebar-nav">
+                <div class="px-3 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tổng quan</div>
+                <a href="dashboard.html" class="sidebar-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Quản lý Dữ
+                    liệu</div>
+                <a href="rooms.html" class="sidebar-link"><i class="fas fa-door-open"></i> Phòng & Giường</a>
+                <a href="tenants.html" class="sidebar-link"><i class="fas fa-users"></i> Khách Thuê</a>
+                <a href="contracts.html" class="sidebar-link"><i class="fas fa-file-signature"></i> Hợp Đồng</a>
+                <a href="rental-requests.html" class="sidebar-link active">
+                    <i class="fas fa-inbox"></i> Yêu Cầu Thuê
+                    <span class="badge badge-danger text-white"
+                        style="margin-left: auto; font-size: 0.65rem; padding: 0.2em 0.5em;">3</span>
+                </a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tài chính
+                </div>
+                <a href="services.html" class="sidebar-link"><i class="fas fa-plug"></i> Dịch Vụ & Điện Nước</a>
+                <a href="invoices.html" class="sidebar-link"><i class="fas fa-file-invoice-dollar"></i> Hóa Đơn</a>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="d-flex align-items-center gap-3">
+                    <button id="sidebarToggle" class="btn btn-icon d-lg-none"><i class="fas fa-bars"></i></button>
+                    <a href="rental-requests.html" class="btn btn-icon" style="color: var(--text-muted);"><i
+                            class="fas fa-arrow-left"></i></a>
+                    <div>
+                        <h2 class="m-0 font-semibold" style="font-size: 1.25rem;">Chi Tiết Yêu Cầu <span
+                                class="text-primary">#YC-001</span></h2>
+                    </div>
+                </div>
+                <div>
+                    <span class="timeline-badge" style="background: rgba(245,158,11,0.12); color: #D97706;"><i
+                            class="fas fa-clock"></i> Đang chờ duyệt</span>
+                </div>
+            </header>
+
+            <div class="admin-content">
+                <div class="detail-layout">
+                    <!-- Left: Tenant Profile -->
+                    <div>
+                        <div class="profile-card mb-4">
+                            <div class="profile-header">
+                                <img src="https://ui-avatars.com/api/?name=PH&background=4A81D4&color=fff&size=160"
+                                    class="profile-avatar" alt="Avatar">
+                                <div class="profile-name">Phạm Hương</div>
+                                <div style="opacity: 0.8; font-size: 0.9rem;">Sinh viên Đại học Quốc gia</div>
+                                <div class="profile-badges">
+                                    <span class="profile-badge"><i class="fas fa-shield-alt"></i> Đã xác minh SĐT</span>
+                                    <span class="profile-badge"><i class="fas fa-id-card"></i> Có CCCD</span>
+                                </div>
+                            </div>
+
+                            <div class="info-list">
+                                <div class="info-item">
+                                    <div class="info-icon"><i class="fas fa-phone"></i></div>
+                                    <div>
+                                        <div class="info-label">Số điện thoại</div>
+                                        <div class="info-value">0912 345 678</div>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-icon"><i class="fas fa-id-card"></i></div>
+                                    <div>
+                                        <div class="info-label">CMND / CCCD</div>
+                                        <div class="info-value">001099012345</div>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                                    <div>
+                                        <div class="info-label">Email</div>
+                                        <div class="info-value">phamhuong@gmail.com</div>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
+                                    <div>
+                                        <div class="info-label">Ngày muốn dọn vào</div>
+                                        <div class="info-value text-primary font-bold">01/04/2026</div>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-icon"><i class="fas fa-clock"></i></div>
+                                    <div>
+                                        <div class="info-label">Ngày gửi yêu cầu</div>
+                                        <div class="info-value">15/03/2026 lúc 14:30</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Message from Tenant -->
+                        <div class="card p-4">
+                            <h4 class="font-semibold mb-3" style="font-size: 1rem;"><i
+                                    class="fas fa-comment-dots text-primary" style="margin-right: 8px;"></i>Lời nhắn từ
+                                khách</h4>
+                            <div class="message-box">
+                                <p>"Em chào chủ nhà ạ. Em hiện tại đang là sinh viên năm 3 ĐH Quốc gia, muốn thuê dài
+                                    hạn (ít nhất 1 năm). Em sống gọn gàng sạch sẽ, không hút thuốc. Mong chủ nhà xem
+                                    xét duyệt cho em ạ. Em cảm ơn!"</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Room Summary + Actions -->
+                    <div>
+                        <div class="room-summary-card">
+                            <img src="https://images.unsplash.com/photo-1522771732448-6dabd57cacc2?w=600&auto=format&fit=crop"
+                                class="room-summary-img" alt="Room">
+                            <div class="room-summary-body">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="badge badge-info text-white">Trống</span>
+                                    <span class="badge badge-secondary">Xuân Thủy</span>
+                                </div>
+                                <h3 class="font-bold m-0" style="font-size: 1.1rem;">P.102 — Studio Có Ban Công</h3>
+                                <p class="text-muted mt-1 mb-0" style="font-size: 0.85rem;"><i
+                                        class="fas fa-map-marker-alt"></i> Ngõ 175 Xuân Thủy, Cầu Giấy, Hà Nội</p>
+
+                                <div class="text-primary font-bold mt-3" style="font-size: 1.5rem;">5.000.000đ<span
+                                        class="text-muted" style="font-weight: normal; font-size: 0.9rem;">/tháng</span>
+                                </div>
+
+                                <div class="room-meta">
+                                    <div class="room-meta-item">
+                                        <div class="room-meta-value">35m²</div>
+                                        <div class="room-meta-label">Diện tích</div>
+                                    </div>
+                                    <div class="room-meta-item">
+                                        <div class="room-meta-value">Tầng 1</div>
+                                        <div class="room-meta-label">Vị trí</div>
+                                    </div>
+                                    <div class="room-meta-item">
+                                        <div class="room-meta-value">1</div>
+                                        <div class="room-meta-label">Phòng tắm</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="action-buttons">
+                                <button class="btn-approve-lg"
+                                    onclick="RentNestUI.showToast('✅ Đã duyệt yêu cầu! Hệ thống đang tạo Hợp Đồng Nháp cho khách...', 'success')">
+                                    <i class="fas fa-check-circle"></i> Duyệt Yêu Cầu & Tạo Hợp Đồng
+                                </button>
+                                <button class="btn-reject-lg" data-modal-target="rejectModal">
+                                    <i class="fas fa-times-circle"></i> Từ Chối Yêu Cầu
+                                </button>
+                                <p class="text-center text-muted m-0" style="font-size: 0.75rem;">Sau khi duyệt, hệ
+                                    thống sẽ tự tạo hợp đồng nháp và gửi cho khách ký.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Reject Modal -->
+    <div class="modal-overlay" id="rejectModal">
+        <div class="modal" style="max-width: 480px;">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-times-circle text-danger" style="margin-right: 8px;"></i>Từ
+                    Chối Yêu Cầu</h3>
+                <button class="modal-close" data-modal-close>&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation">
+                    <div class="form-group">
+                        <label class="form-label">Lý do từ chối <span class="text-danger">*</span></label>
+                        <select class="form-control" name="rejectReason" required>
+                            <option value="">-- Chọn lý do --</option>
+                            <option>Phòng đã có người đặt trước</option>
+                            <option>Không phù hợp yêu cầu</option>
+                            <option>Phòng đang bảo trì</option>
+                            <option>Lý do khác</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ghi chú thêm (tùy chọn)</label>
+                        <textarea class="form-control" rows="3"
+                            placeholder="VD: Phòng này đã có khách đặt trước, mời bạn xem phòng khác..."></textarea>
+                    </div>
+                    <div class="d-flex gap-2 mt-3">
+                        <button type="button" class="btn btn-outline flex-1" data-modal-close>Hủy</button>
+                        <button type="submit" class="btn flex-1"
+                            style="background: var(--danger); color: white; flex: 2;">
+                            <i class="fas fa-times"></i> Xác nhận Từ Chối
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

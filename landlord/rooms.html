@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Phòng - RentNest Landlord</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+
+<body>
+
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-home text-primary"></i> RentNest Landlord
+            </div>
+            <nav class="sidebar-nav">
+                <div class="px-3 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tổng quan</div>
+                <a href="dashboard.html" class="sidebar-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Quản lý Dữ
+                    liệu</div>
+                <a href="rooms.html" class="sidebar-link active"><i class="fas fa-door-open"></i> Phòng & Giường</a>
+                <a href="tenants.html" class="sidebar-link"><i class="fas fa-users"></i> Khách Thuê</a>
+                <a href="contracts.html" class="sidebar-link"><i class="fas fa-file-signature"></i> Hợp Đồng</a>
+                <a href="rental-requests.html" class="sidebar-link">
+                    <i class="fas fa-inbox"></i> Yêu Cầu Thuê
+                    <span class="badge badge-danger text-white"
+                        style="margin-left: auto; font-size: 0.65rem; padding: 0.2em 0.5em;">3</span>
+                </a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tài chính
+                </div>
+                <a href="services.html" class="sidebar-link"><i class="fas fa-plug"></i> Dịch Vụ & Điện Nước</a>
+                <a href="invoices.html" class="sidebar-link"><i class="fas fa-file-invoice-dollar"></i> Hóa Đơn</a>
+                <!-- ... other links ... -->
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="d-flex align-items-center gap-3">
+                    <button id="sidebarToggle" class="btn btn-icon d-lg-none"><i class="fas fa-bars"></i></button>
+                    <h2 class="m-0 font-semibold" style="font-size: 1.25rem;">Quản lý Phòng</h2>
+                </div>
+            </header>
+
+            <div class="admin-content">
+
+                <div class="card p-0 mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <div class="d-flex gap-3">
+                            <select class="form-control form-control-sm" style="width: 200px;">
+                                <option>Tất cả cơ sở</option>
+                                <option>Xuân Thủy</option>
+                            </select>
+                            <select class="form-control form-control-sm" style="width: 150px;">
+                                <option>Trạng thái</option>
+                                <option>Phòng trống</option>
+                                <option>Đang thuê</option>
+                                <option>Đang sửa chữa</option>
+                            </select>
+                            <input type="text" class="form-control form-control-sm" placeholder="Tìm tên phòng..."
+                                style="width: 200px;">
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline" data-modal-target="hostelModal"><i
+                                    class="fas fa-building"></i> Thêm Tòa Nhà</button>
+                            <button class="btn btn-primary" data-modal-target="roomModal"><i class="fas fa-plus"></i>
+                                Thêm Phòng</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Cơ Sở</th>
+                                    <th>Tên Phòng</th>
+                                    <th>Loại Phòng</th>
+                                    <th>Giá Thuê</th>
+                                    <th>Diện tích</th>
+                                    <th>Trạng Thái</th>
+                                    <th class="text-right">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Xuân Thủy</td>
+                                    <td class="font-medium text-primary">P.101</td>
+                                    <td>Studio</td>
+                                    <td>4.500.000đ</td>
+                                    <td>30m²</td>
+                                    <td><span class="badge badge-success">Đang thuê</span></td>
+                                    <td class="text-right">
+                                        <button class="btn btn-sm btn-outline"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline text-danger"><i
+                                                class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Xuân Thủy</td>
+                                    <td class="font-medium text-primary">P.102</td>
+                                    <td>Studio Có Ban Công</td>
+                                    <td>5.000.000đ</td>
+                                    <td>35m²</td>
+                                    <td><span class="badge badge-info text-white">Trống</span></td>
+                                    <td class="text-right">
+                                        <a href="add-tenant.html?room=P.102" class="btn btn-sm"
+                                            style="background: rgba(16,185,129,0.1); color: var(--success); border: 1px solid rgba(16,185,129,0.2);"
+                                            title="Thêm khách thuê">
+                                            <i class="fas fa-user-plus"></i> Thêm khách
+                                        </a>
+                                        <button class="btn btn-sm btn-outline"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline text-danger"><i
+                                                class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cầu Giấy</td>
+                                    <td class="font-medium text-primary">Phòng 201</td>
+                                    <td>Căn Hộ 1PN</td>
+                                    <td>6.500.000đ</td>
+                                    <td>45m²</td>
+                                    <td><span class="badge bg-warning text-white">Sắp trống</span></td>
+                                    <td class="text-right">
+                                        <button class="btn btn-sm btn-outline"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline text-danger"><i
+                                                class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Đống Đa</td>
+                                    <td class="font-medium text-primary">P.301</td>
+                                    <td>Phòng Trọ</td>
+                                    <td>2.500.000đ</td>
+                                    <td>15m²</td>
+                                    <td><span class="badge bg-danger text-white">Đang sửa chữa</span></td>
+                                    <td class="text-right">
+                                        <button class="btn btn-sm btn-outline"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-outline text-danger"><i
+                                                class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center bg-transparent">
+                        <span class="text-sm text-muted">Hiển thị 1 - 4 trong số 45 phòng</span>
+                        <ul class="pagination m-0">
+                            <li class="page-item disabled"><a class="page-link" href="#"><i
+                                        class="fas fa-chevron-left"></i></a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Hostel Modal -->
+    <div class="modal-overlay" id="hostelModal">
+        <div class="modal" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Thêm Tòa Nhà / Cơ Sở Mới</h3>
+                <button class="modal-close" data-modal-close>&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation">
+                    <div class="form-group mb-3">
+                        <label class="form-label">Tên Tòa Nhà (Bắt buộc)</label>
+                        <input type="text" class="form-control" name="name" placeholder="VD: RentNest Complex Cầu Giấy"
+                            required>
+                    </div>
+
+                    <div class="d-grid grid-cols-3 gap-3 mb-3">
+                        <div class="form-group">
+                            <label class="form-label">Tỉnh / Thành phố</label>
+                            <select class="form-control" name="cityCode" required>
+                                <option value="">-- Chọn Tỉnh/TP --</option>
+                                <option value="01">Hà Nội</option>
+                                <option value="79">Hồ Chí Minh</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Quận / Huyện</label>
+                            <select class="form-control" name="districtCode" required>
+                                <option value="">-- Chọn Quận/Huyện --</option>
+                                <option value="001">Ba Đình</option>
+                                <option value="002">Hoàn Kiếm</option>
+                                <option value="005">Cầu Giấy</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phường / Xã</label>
+                            <select class="form-control" name="wardCode" required>
+                                <option value="">-- Chọn Phường/Xã --</option>
+                                <option value="0001">Phúc Xá</option>
+                                <option value="0124">Dịch Vọng</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Số nhà, Tên đường (Chi tiết)</label>
+                        <input type="text" class="form-control" name="addressDetail"
+                            placeholder="VD: Số 10, Ngõ 20, Đường Xuân Thủy" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Mô tả chung</label>
+                        <textarea class="form-control" name="description" rows="3"
+                            placeholder="Mô tả về khu trọ, vị trí, an ninh..."></textarea>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="form-label d-flex justify-content-between">
+                            <span>Upload Ảnh Tòa Nhà (Nhiều ảnh)</span>
+                            <span class="text-xs text-muted">Hỗ trợ JPG, PNG (Tối đa 5MB/ảnh)</span>
+                        </label>
+                        <div class="upload-zone border-dashed rounded-lg p-4 text-center cursor-pointer"
+                            style="border: 2px dashed var(--border-color); background: var(--bg-alt);">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-muted mb-2"></i>
+                            <p class="m-0 font-medium">Kéo thả hoặc Click để tải ảnh lên</p>
+                        </div>
+                        <!-- Preview Images mock -->
+                        <div class="d-flex gap-2 mt-3 overflow-x-auto pb-2">
+                            <div class="position-relative"
+                                style="width: 80px; height: 80px; border-radius: 8px; overflow: hidden;">
+                                <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb"
+                                    style="width: 100%; height: 100%; object-fit: cover;">
+                                <div class="position-absolute top-0 right-0 bg-danger text-white d-flex align-items-center justify-content-center"
+                                    style="width: 20px; height: 20px; border-bottom-left-radius: 4px; cursor: pointer;">
+                                    <i class="fas fa-times text-xs"></i>
+                                </div>
+                                <div class="position-absolute bottom-0 w-100 text-center"
+                                    style="background: rgba(0,0,0,0.5); font-size: 0.6rem; color: white; padding: 2px;">
+                                    Ảnh bìa</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer p-0 border-0 mt-4 d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-outline" data-modal-close>Hủy</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Lưu Cơ Sở</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Room Modal -->
+    <div class="modal-overlay" id="roomModal">
+        <div class="modal" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Thêm Phòng Mới</h3>
+                <button class="modal-close" data-modal-close>&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation">
+                    <div class="d-grid grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label class="form-label">Thuộc Tòa nhà / Cơ sở</label>
+                            <select class="form-control" name="hostel_id" required>
+                                <option value="">-- Chọn cơ sở --</option>
+                                <option value="1">Cơ Sở Xuân Thủy</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tên/Mã phòng</label>
+                            <input type="text" class="form-control" name="roomName" placeholder="VD: P.101" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Giá thuê (VNĐ/tháng)</label>
+                            <input type="number" class="form-control" name="basePrice" placeholder="VD: 4500000"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Diện tích (m²)</label>
+                            <input type="number" step="0.1" class="form-control" name="area" placeholder="VD: 25.5"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Tầng Số (Floor)</label>
+                            <input type="number" class="form-control" name="floor" placeholder="VD: 1">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Số phòng tắm (WC)</label>
+                            <input type="number" class="form-control" name="bathCount" placeholder="VD: 1">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Loại Giường (Bed Type)</label>
+                            <select class="form-control" name="bedType">
+                                <option value="Không có giường">Không có giường</option>
+                                <option value="Giường đơn (1m2)">Giường đơn (1m2)</option>
+                                <option value="Giường đôi (1m6)">Giường đôi (1m6)</option>
+                                <option value="Giường tầng">Giường tầng</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Trạng thái phòng</label>
+                            <select class="form-control" name="status">
+                                <option value="AVAILABLE">Phòng trống</option>
+                                <option value="RENTED">Đang cho thuê</option>
+                                <option value="MAINTENANCE">Đang sửa chữa</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4 mb-2">
+                        <label class="form-label d-flex justify-content-between">
+                            <span>Upload Ảnh Chi Tiết Phòng (Nhiều ảnh)</span>
+                        </label>
+                        <div class="upload-zone border-dashed rounded-lg p-4 text-center cursor-pointer"
+                            style="border: 2px dashed var(--border-color); background: var(--bg-alt);">
+                            <i class="fas fa-images text-3xl text-muted mb-2"></i>
+                            <p class="m-0 font-medium text-sm">Chọn nhiều file ảnh hoặc kéo thả vào đây</p>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer p-0 border-0 mt-4 d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-outline" data-modal-close>Hủy</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Lưu Phòng</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

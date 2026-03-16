@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landlord Dashboard - RentNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <!-- Chart.js for Mocking Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .stat-card {
+            background: var(--bg-surface);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-home text-primary" style="margin-right: 10px;"></i> RentNest Landlord
+            </div>
+            <nav class="sidebar-nav">
+                <div class="px-3 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tổng quan</div>
+                <a href="dashboard.html" class="sidebar-link active"><i class="fas fa-chart-line"></i> Dashboard</a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Quản lý Dữ
+                    liệu</div>
+                <a href="rooms.html" class="sidebar-link"><i class="fas fa-door-open"></i> Phòng & Giường</a>
+                <a href="tenants.html" class="sidebar-link"><i class="fas fa-users"></i> Khách Thuê</a>
+                <a href="contracts.html" class="sidebar-link"><i class="fas fa-file-signature"></i> Hợp Đồng</a>
+                <a href="rental-requests.html" class="sidebar-link">
+                    <i class="fas fa-inbox"></i> Yêu Cầu Thuê
+                    <span class="badge badge-danger text-white"
+                        style="margin-left: auto; font-size: 0.65rem; padding: 0.2em 0.5em;">3</span>
+                </a>
+
+                <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tài chính
+                </div>
+                <a href="services.html" class="sidebar-link"><i class="fas fa-plug"></i> Dịch Vụ & Điện Nước</a>
+                <a href="invoices.html" class="sidebar-link"><i class="fas fa-file-invoice-dollar"></i> Hóa Đơn</a>
+                <a href="reports.html" class="sidebar-link"><i class="fas fa-chart-bar"></i> Báo Cáo</a>
+            </nav>
+            <div class="p-3 border-top" style="border-color: rgba(255,255,255,0.1);">
+                <a href="../login.html" class="sidebar-link text-danger p-2"><i class="fas fa-sign-out-alt"></i> Đăng
+                    xuất</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="d-flex align-items-center gap-3">
+                    <button id="sidebarToggle" class="btn btn-icon d-lg-none"><i class="fas fa-bars"></i></button>
+                    <h2 class="m-0 font-semibold" style="font-size: 1.25rem;">Landlord Dashboard</h2>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-icon position-relative">
+                        <i class="far fa-bell"></i>
+                        <span class="position-absolute top-0 right-0 badge badge-danger rounded-circle p-1"
+                            style="width: 10px; height: 10px;"></span>
+                    </button>
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="https://ui-avatars.com/api/?name=Landlord&background=0F52BA&color=fff" alt="Chủ Nhà"
+                            style="width: 32px; height: 32px; border-radius: 50%;">
+                        <span class="font-medium text-sm d-none d-md-block">Chủ Nhà</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="admin-content p-4" style="background-color: var(--bg-alt); min-height: calc(100vh - 70px);">
+                <!-- Stats Grid -->
+                <div class="d-grid grid-cols-4 gap-4 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--success);">
+                            <i class="fas fa-door-open"></i>
+                        </div>
+                        <div>
+                            <div class="stat-value">45/50</div>
+                            <div class="stat-label">Phòng đang cho thuê</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--info);">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <div class="stat-value">68</div>
+                            <div class="stat-label">Khách đang lưu trú</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--warning);">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div>
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Hóa đơn chưa thu</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--danger);">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div>
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Yêu cầu sửa chữa mới</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-4" style="grid-template-columns: 2fr 1fr;">
+                    <!-- Revenue Chart -->
+                    <div class="card p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="font-semibold m-0" style="font-size: 1.1rem;">Doanh thu 6 tháng gần nhất</h3>
+                            <select class="form-control form-control-sm" style="width: auto;">
+                                <option>Tất cả cơ sở</option>
+                                <option>Cơ sở Xuân Thủy</option>
+                            </select>
+                        </div>
+                        <div style="height: 300px;">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activities -->
+                    <div class="card d-flex flex-column">
+                        <div class="card-header border-0 bg-transparent pb-0">
+                            <h3 class="font-semibold m-0" style="font-size: 1.1rem;">Hoạt động gần đây</h3>
+                        </div>
+                        <div class="card-body p-0 pt-3 flex-1 overflow-y-auto">
+                            <div class="px-4 pb-3 border-bottom border-color d-flex gap-3">
+                                <div class="text-success mt-1"><i class="fas fa-check-circle"></i></div>
+                                <div>
+                                    <div class="text-sm font-medium">Khách phòng 102 đã thanh toán hóa đơn.</div>
+                                    <div class="text-xs text-muted">10 phút trước</div>
+                                </div>
+                            </div>
+                            <div class="px-4 py-3 border-bottom border-color d-flex gap-3">
+                                <div class="text-danger mt-1"><i class="fas fa-exclamation-circle"></i></div>
+                                <div>
+                                    <div class="text-sm font-medium">Phòng 205 báo hỏng điều hòa.</div>
+                                    <div class="text-xs text-muted">1 giờ trước</div>
+                                </div>
+                            </div>
+                            <div class="px-4 py-3 border-bottom border-color d-flex gap-3">
+                                <div class="text-primary mt-1"><i class="fas fa-user-plus"></i></div>
+                                <div>
+                                    <div class="text-sm font-medium">Có người mới yêu cầu xem phòng 304.</div>
+                                    <div class="text-xs text-muted">3 giờ trước</div>
+                                </div>
+                            </div>
+                            <div class="px-4 py-3 d-flex gap-3">
+                                <div class="text-warning mt-1"><i class="fas fa-file-signature"></i></div>
+                                <div>
+                                    <div class="text-sm font-medium">Hợp đồng phòng 201 sắp hết hạn (còn 7 ngày).</div>
+                                    <div class="text-xs text-muted">Hôm qua</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent border-top border-color text-center p-2">
+                            <a href="reports.html" class="text-primary text-sm font-medium">Xem tất cả</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Restore chart initialization from original admin/dashboard
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['T9', 'T10', 'T11', 'T12', 'T1', 'T2'],
+                    datasets: [{
+                        label: 'Doanh thu (Triệu VNĐ)',
+                        data: [150, 155, 148, 160, 165, 172],
+                        backgroundColor: '#0F52BA',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f3f4f6' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

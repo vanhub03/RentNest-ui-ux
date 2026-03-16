@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán Tiền Cọc - RentNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <style>
+        .payment-wrapper {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .payment-steps {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 2rem;
+        }
+
+        .pay-step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .pay-step.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .pay-step.completed {
+            color: var(--success);
+        }
+
+        .pay-step-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: var(--bg-alt);
+            border: 2px solid var(--border-color);
+        }
+
+        .pay-step.active .pay-step-icon {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pay-step.completed .pay-step-icon {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+
+        .pay-step-line {
+            width: 60px;
+            height: 2px;
+            background: var(--border-color);
+            margin: 0 0.5rem;
+        }
+
+        .pay-step-line.completed {
+            background: var(--success);
+        }
+
+        .order-summary {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.625rem 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        .order-row:last-child {
+            border-bottom: none;
+        }
+
+        .order-row.total {
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding-top: 1rem;
+            border-top: 2px solid var(--border-color);
+            border-bottom: none;
+            margin-top: 0.5rem;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-method {
+            background: var(--bg-surface);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .payment-method.selected {
+            border-color: var(--primary);
+            background: rgba(15, 82, 186, 0.03);
+            box-shadow: 0 0 0 3px rgba(15, 82, 186, 0.1);
+        }
+
+        .payment-method input[type="radio"] {
+            display: none;
+        }
+
+        .pm-radio {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all var(--transition-fast);
+        }
+
+        .payment-method.selected .pm-radio {
+            border-color: var(--primary);
+        }
+
+        .pm-radio-inner {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            transform: scale(0);
+            transition: transform var(--transition-fast);
+        }
+
+        .payment-method.selected .pm-radio-inner {
+            transform: scale(1);
+        }
+
+        .pm-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .pm-info {
+            flex: 1;
+        }
+
+        .pm-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .pm-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .btn-pay {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 1.1rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            box-shadow: 0 4px 14px rgba(15, 82, 186, 0.3);
+        }
+
+        .btn-pay:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(15, 82, 186, 0.4);
+        }
+
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Success State */
+        .success-container {
+            display: none;
+            text-align: center;
+            padding: 3rem 1.5rem;
+        }
+
+        .success-container.show {
+            display: block;
+        }
+
+        .success-icon-wrap {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            animation: successPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .success-icon-wrap i {
+            font-size: 3rem;
+            color: var(--success);
+        }
+
+        @keyframes successPop {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .confetti {
+            position: relative;
+        }
+
+        .confetti::before,
+        .confetti::after {
+            content: '🎉';
+            position: absolute;
+            font-size: 2rem;
+            animation: confettiFloat 1s ease-out forwards;
+        }
+
+        .confetti::before {
+            left: 25%;
+            top: -10px;
+        }
+
+        .confetti::after {
+            right: 25%;
+            top: -10px;
+            animation-delay: 0.2s;
+        }
+
+        @keyframes confettiFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-60px) rotate(30deg);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .payment-steps {
+                flex-wrap: wrap;
+            }
+
+            .pay-step-line {
+                width: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-surface">
+
+    <!-- Header / Navbar -->
+    <header class="navbar border-bottom border-color">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-home"></i> RentNest
+            </a>
+            <nav class="navbar-menu d-flex align-items-center">
+                <ul class="navbar-nav">
+                    <li><a href="contract-preview.html" class="nav-link"><i class="fas fa-chevron-left"></i> Quay lại
+                            Hợp đồng</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="py-5">
+        <div class="container">
+            <div class="payment-wrapper">
+
+                <!-- Steps -->
+                <div class="payment-steps">
+                    <div class="pay-step completed">
+                        <div class="pay-step-icon"><i class="fas fa-check"></i></div>
+                        <span>Gửi Yêu Cầu</span>
+                    </div>
+                    <div class="pay-step-line completed"></div>
+                    <div class="pay-step completed">
+                        <div class="pay-step-icon"><i class="fas fa-check"></i></div>
+                        <span>Được Duyệt</span>
+                    </div>
+                    <div class="pay-step-line completed"></div>
+                    <div class="pay-step completed">
+                        <div class="pay-step-icon"><i class="fas fa-check"></i></div>
+                        <span>Ký Hợp Đồng</span>
+                    </div>
+                    <div class="pay-step-line"></div>
+                    <div class="pay-step active">
+                        <div class="pay-step-icon">4</div>
+                        <span>Thanh Toán</span>
+                    </div>
+                </div>
+
+                <!-- Payment Form State -->
+                <div id="paymentForm">
+                    <h2 class="font-bold text-center mb-1" style="font-size: 1.5rem;">Thanh Toán Tiền Cọc</h2>
+                    <p class="text-center text-muted mb-4">Hoàn tất bước cuối cùng để trở thành khách thuê</p>
+
+                    <!-- Order Summary -->
+                    <div class="order-summary">
+                        <h4 class="font-semibold mb-3" style="font-size: 1rem;"><i class="fas fa-receipt text-primary"
+                                style="margin-right: 8px;"></i>Chi tiết thanh toán</h4>
+                        <div class="d-flex align-items-center gap-3 mb-3 pb-3"
+                            style="border-bottom: 1px solid var(--border-color);">
+                            <img src="https://images.unsplash.com/photo-1522771732448-6dabd57cacc2?w=200&auto=format&fit=crop"
+                                style="width: 56px; height: 56px; border-radius: var(--radius-md); object-fit: cover;">
+                            <div>
+                                <div class="font-semibold">P.102 — Studio Có Ban Công</div>
+                                <div class="text-muted text-sm">Cơ sở Xuân Thủy, Cầu Giấy</div>
+                            </div>
+                        </div>
+                        <div class="order-row">
+                            <span class="text-muted">Hợp đồng</span>
+                            <span>#HD-2026-012</span>
+                        </div>
+                        <div class="order-row">
+                            <span class="text-muted">Thời hạn</span>
+                            <span>12 tháng (01/04/2026 - 31/03/2027)</span>
+                        </div>
+                        <div class="order-row">
+                            <span class="text-muted">Tiền cọc (1 tháng)</span>
+                            <span>5.000.000đ</span>
+                        </div>
+                        <div class="order-row total">
+                            <span>Tổng thanh toán</span>
+                            <span class="text-primary">5.000.000đ</span>
+                        </div>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <h4 class="font-semibold mb-3" style="font-size: 1rem;"><i class="fas fa-credit-card text-primary"
+                            style="margin-right: 8px;"></i>Chọn phương thức thanh toán</h4>
+
+                    <div class="payment-methods">
+                        <label class="payment-method selected" onclick="selectPayment(this)">
+                            <input type="radio" name="paymentMethod" value="vnpay" checked>
+                            <div class="pm-radio">
+                                <div class="pm-radio-inner"></div>
+                            </div>
+                            <div class="pm-logo"
+                                style="background: linear-gradient(135deg, #005BAA, #003D73); color: white; font-size: 0.7rem;">
+                                VN<br>PAY</div>
+                            <div class="pm-info">
+                                <div class="pm-name">VNPay</div>
+                                <div class="pm-desc">Thanh toán qua ví VNPay, thẻ ATM nội địa, Visa/Master</div>
+                            </div>
+                        </label>
+
+                        <label class="payment-method" onclick="selectPayment(this)">
+                            <input type="radio" name="paymentMethod" value="momo">
+                            <div class="pm-radio">
+                                <div class="pm-radio-inner"></div>
+                            </div>
+                            <div class="pm-logo"
+                                style="background: linear-gradient(135deg, #A50064, #D82D8B); color: white;">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="pm-info">
+                                <div class="pm-name">Ví MoMo</div>
+                                <div class="pm-desc">Thanh toán nhanh qua ứng dụng MoMo</div>
+                            </div>
+                        </label>
+
+                        <label class="payment-method" onclick="selectPayment(this)">
+                            <input type="radio" name="paymentMethod" value="bank">
+                            <div class="pm-radio">
+                                <div class="pm-radio-inner"></div>
+                            </div>
+                            <div class="pm-logo"
+                                style="background: linear-gradient(135deg, #0F52BA, #4A81D4); color: white;">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                            <div class="pm-info">
+                                <div class="pm-name">Chuyển khoản ngân hàng (QR Code)</div>
+                                <div class="pm-desc">Quét mã QR chuyển khoản trực tiếp qua app ngân hàng</div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Pay Button -->
+                    <button class="btn-pay" onclick="processPayment()">
+                        <i class="fas fa-lock"></i> Thanh Toán 5.000.000đ
+                    </button>
+
+                    <div class="security-note">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Giao dịch được bảo mật bởi SSL 256-bit. Thông tin thẻ không lưu trên hệ thống.</span>
+                    </div>
+                </div>
+
+                <!-- Success State -->
+                <div class="success-container" id="paymentSuccess">
+                    <div class="confetti">
+                        <div class="success-icon-wrap">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <h2 class="font-bold mb-2" style="font-size: 1.75rem; color: var(--success);">Thanh Toán Thành Công!
+                    </h2>
+                    <p class="text-muted mb-4" style="font-size: 1.05rem;">Chúc mừng bạn đã chính thức trở thành khách
+                        thuê!</p>
+
+                    <div class="card p-4 text-left mb-4"
+                        style="max-width: 420px; margin: 0 auto; border: 1px solid rgba(16,185,129, 0.2); background: rgba(16,185,129,0.03);">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <img src="https://images.unsplash.com/photo-1522771732448-6dabd57cacc2?w=200&auto=format&fit=crop"
+                                style="width: 56px; height: 56px; border-radius: var(--radius-md); object-fit: cover;">
+                            <div>
+                                <div class="font-bold">P.102 — Studio Có Ban Công</div>
+                                <div class="text-muted text-sm">Cơ sở Xuân Thủy, Cầu Giấy</div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between py-2"
+                            style="border-top: 1px solid var(--border-color); font-size: 0.9rem;">
+                            <span class="text-muted">Trạng thái phòng</span>
+                            <span class="badge badge-success font-medium">ĐANG THUÊ</span>
+                        </div>
+                        <div class="d-flex justify-content-between py-2"
+                            style="border-top: 1px solid var(--border-color); font-size: 0.9rem;">
+                            <span class="text-muted">Mã giao dịch</span>
+                            <span class="font-medium">#GD-20260316-001</span>
+                        </div>
+                        <div class="d-flex justify-content-between py-2"
+                            style="border-top: 1px solid var(--border-color); font-size: 0.9rem;">
+                            <span class="text-muted">Số tiền đã thanh toán</span>
+                            <span class="font-bold text-success">5.000.000đ</span>
+                        </div>
+                        <div class="d-flex justify-content-between py-2"
+                            style="border-top: 1px solid var(--border-color); font-size: 0.9rem;">
+                            <span class="text-muted">Ngày bắt đầu thuê</span>
+                            <span class="font-medium">01/04/2026</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 justify-content-center">
+                        <a href="my-rooms.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-door-open"></i> Xem Phòng Của Tôi
+                        </a>
+                        <a href="my-invoices.html" class="btn btn-outline btn-lg">
+                            <i class="fas fa-file-invoice"></i> Hóa Đơn
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" style="background-color: #1F2937; color: #9CA3AF; padding: 3rem 0; margin-top: auto;">
+        <div class="container text-center">
+            <p>&copy; 2026 RentNest.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        function selectPayment(el) {
+            document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+            el.classList.add('selected');
+            el.querySelector('input[type="radio"]').checked = true;
+        }
+
+        function processPayment() {
+            const btn = document.querySelector('.btn-pay');
+            const originalText = btn.innerHTML;
+
+            btn.innerHTML = '<div class="spinner" style="width:1.25rem;height:1.25rem;border-width:3px;border-top-color:white;"></div> Đang xử lý...';
+            btn.style.pointerEvents = 'none';
+            btn.style.opacity = '0.8';
+
+            setTimeout(() => {
+                document.getElementById('paymentForm').style.display = 'none';
+                const success = document.getElementById('paymentSuccess');
+                success.classList.add('show');
+
+                // Update the step bar
+                const steps = document.querySelectorAll('.pay-step');
+                const lines = document.querySelectorAll('.pay-step-line');
+                steps[3].classList.remove('active');
+                steps[3].classList.add('completed');
+                steps[3].querySelector('.pay-step-icon').innerHTML = '<i class="fas fa-check"></i>';
+                if (lines[2]) lines[2].classList.add('completed');
+            }, 2500);
+        }
+    </script>
+</body>
+
+</html>

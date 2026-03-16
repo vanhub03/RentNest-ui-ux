@@ -1,0 +1,21 @@
+<header class="admin-header">
+    <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-icon d-lg-none" (click)="toggleSidebar.emit()"><i class="fas fa-bars"></i></button>
+        <h2 class="m-0 font-semibold" style="font-size: 1.25rem;">{{ title }}</h2>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+        <span class="text-xs text-muted d-none d-md-block"><i class="fas fa-server text-success"></i> Hệ thống: Ổn
+            định</span>
+        <button class="btn btn-icon position-relative">
+            <i class="far fa-bell"></i>
+            <span *ngIf="unreadAlerts > 0" class="position-absolute top-0 right-0 badge badge-danger rounded-circle p-1"
+                style="width: 10px; height: 10px;"></span>
+        </button>
+        <div class="d-flex align-items-center gap-2">
+            <!-- Using green background to visually differentiate SuperAdmin from Landlord (blue) -->
+            <img src="https://ui-avatars.com/api/?name=Super+Admin&background=10B981&color=fff" alt="Admin"
+                style="width: 32px; height: 32px; border-radius: 50%;">
+            <span class="font-medium text-sm d-none d-md-block">Super Admin</span>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xem & Ký Hợp Đồng Thuê - RentNest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <style>
+        .contract-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contract-status-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .contract-doc {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .contract-doc-header {
+            background: linear-gradient(135deg, #0F52BA, #083D8E);
+            color: white;
+            padding: 2rem 2.5rem;
+            text-align: center;
+        }
+
+        .contract-doc-header h2 {
+            color: white;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .contract-doc-header p {
+            opacity: 0.8;
+            margin: 0.5rem 0 0;
+        }
+
+        .contract-body {
+            padding: 2rem 2.5rem;
+        }
+
+        .contract-section {
+            margin-bottom: 2rem;
+        }
+
+        .contract-section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(15, 82, 186, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contract-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .contract-table td {
+            padding: 0.625rem 0;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        .contract-table td:first-child {
+            color: var(--text-muted);
+            width: 180px;
+            font-size: 0.9rem;
+        }
+
+        .contract-table td:last-child {
+            font-weight: 500;
+        }
+
+        .terms-content {
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 1.25rem;
+            background: var(--bg-alt);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .terms-content ol {
+            list-style: decimal;
+            padding-left: 1.5rem;
+        }
+
+        .terms-content li {
+            margin-bottom: 0.75rem;
+        }
+
+        .signature-area {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.02));
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+        }
+
+        .checkbox-custom {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+
+        .checkbox-custom input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .contract-footer-actions {
+            padding: 1.5rem 2.5rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-alt);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-sign {
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+            border: none;
+            padding: 0.875rem 2rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-sign:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-sign:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .price-highlight {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .contract-body {
+                padding: 1.5rem;
+            }
+
+            .contract-doc-header {
+                padding: 1.5rem;
+            }
+
+            .contract-footer-actions {
+                flex-direction: column;
+                padding: 1.5rem;
+            }
+
+            .contract-table td:first-child {
+                width: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-surface">
+
+    <!-- Header / Navbar -->
+    <header class="navbar border-bottom border-color">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-home"></i> RentNest
+            </a>
+            <nav class="navbar-menu d-flex align-items-center">
+                <ul class="navbar-nav">
+                    <li><a href="rooms.html" class="nav-link"><i class="fas fa-chevron-left"></i> Quay lại</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="py-4">
+        <div class="container">
+            <div class="contract-wrapper">
+
+                <!-- Status Bar -->
+                <div class="contract-status-bar">
+                    <div class="status-left">
+                        <div class="status-icon" style="background: rgba(245,158,11,0.1); color: var(--warning);">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold">Hợp Đồng Nháp #HD-2026-012</div>
+                            <div class="text-muted text-sm">Được tạo tự động bởi hệ thống · 16/03/2026</div>
+                        </div>
+                    </div>
+                    <span class="badge badge-warning text-white"
+                        style="font-size: 0.85rem; padding: 0.4em 0.8em; background: var(--warning);">
+                        <i class="fas fa-pen"></i> Chờ ký
+                    </span>
+                </div>
+
+                <!-- Contract Document -->
+                <div class="contract-doc">
+                    <div class="contract-doc-header">
+                        <div style="font-size: 0.85rem; margin-bottom: 0.5rem; opacity: 0.8;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA
+                            VIỆT NAM</div>
+                        <div style="font-size: 0.8rem; margin-bottom: 1rem; opacity: 0.7;">Độc lập - Tự do - Hạnh phúc
+                        </div>
+                        <h2>HỢP ĐỒNG THUÊ PHÒNG TRỌ</h2>
+                        <p>Số: HD-2026-012 · Ngày lập: 16/03/2026</p>
+                    </div>
+
+                    <div class="contract-body">
+                        <!-- Bên A -->
+                        <div class="contract-section">
+                            <div class="contract-section-title">
+                                <i class="fas fa-user-tie"></i> BÊN A — Bên cho thuê (Chủ Nhà)
+                            </div>
+                            <table class="contract-table">
+                                <tr>
+                                    <td>Họ và tên</td>
+                                    <td>Cô Lan Cầu Giấy</td>
+                                </tr>
+                                <tr>
+                                    <td>Số điện thoại</td>
+                                    <td>0988 112 233</td>
+                                </tr>
+                                <tr>
+                                    <td>Địa chỉ</td>
+                                    <td>Ngõ 175 Xuân Thủy, Dịch Vọng Hậu, Cầu Giấy, Hà Nội</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Bên B -->
+                        <div class="contract-section">
+                            <div class="contract-section-title">
+                                <i class="fas fa-user"></i> BÊN B — Bên thuê (Khách)
+                            </div>
+                            <table class="contract-table">
+                                <tr>
+                                    <td>Họ và tên</td>
+                                    <td>Phạm Hương</td>
+                                </tr>
+                                <tr>
+                                    <td>CMND/CCCD</td>
+                                    <td>001099012345</td>
+                                </tr>
+                                <tr>
+                                    <td>Số điện thoại</td>
+                                    <td>0912 345 678</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>phamhuong@gmail.com</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Room Info -->
+                        <div class="contract-section">
+                            <div class="contract-section-title">
+                                <i class="fas fa-door-open"></i> Thông Tin Phòng Thuê
+                            </div>
+                            <table class="contract-table">
+                                <tr>
+                                    <td>Phòng</td>
+                                    <td class="text-primary font-bold">P.102 — Studio Có Ban Công</td>
+                                </tr>
+                                <tr>
+                                    <td>Cơ sở</td>
+                                    <td>Cơ sở Xuân Thủy, Cầu Giấy, Hà Nội</td>
+                                </tr>
+                                <tr>
+                                    <td>Diện tích</td>
+                                    <td>35m²</td>
+                                </tr>
+                                <tr>
+                                    <td>Giá thuê</td>
+                                    <td class="price-highlight">5.000.000đ / tháng</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Terms -->
+                        <div class="contract-section">
+                            <div class="contract-section-title">
+                                <i class="fas fa-money-bill-wave"></i> Chi Phí & Thời Hạn
+                            </div>
+                            <table class="contract-table">
+                                <tr>
+                                    <td>Tiền cọc</td>
+                                    <td class="font-bold text-success">5.000.000đ (1 tháng tiền phòng)</td>
+                                </tr>
+                                <tr>
+                                    <td>Thời hạn hợp đồng</td>
+                                    <td>12 tháng (01/04/2026 — 31/03/2027)</td>
+                                </tr>
+                                <tr>
+                                    <td>Tiền điện</td>
+                                    <td>3.800đ / kWh</td>
+                                </tr>
+                                <tr>
+                                    <td>Tiền nước</td>
+                                    <td>25.000đ / khối</td>
+                                </tr>
+                                <tr>
+                                    <td>Phí Wifi</td>
+                                    <td>100.000đ / phòng / tháng</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày thanh toán</td>
+                                    <td>Ngày 05 hàng tháng</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Terms & Conditions -->
+                        <div class="contract-section">
+                            <div class="contract-section-title">
+                                <i class="fas fa-gavel"></i> Điều Khoản Hợp Đồng
+                            </div>
+                            <div class="terms-content">
+                                <ol>
+                                    <li><strong>Thanh toán tiền thuê:</strong> Bên B phải thanh toán tiền thuê phòng đầy
+                                        đủ, đúng hạn vào ngày 05 hàng tháng. Nếu chậm quá 07 ngày, Bên B sẽ phải chịu
+                                        phí phạt 50.000đ/ngày.</li>
+                                    <li><strong>Tiền cọc:</strong> Tiền đặt cọc sẽ được hoàn trả khi kết thúc hợp đồng,
+                                        sau khi trừ các khoản nợ, hư hại (nếu có). Bên B phải báo trước ít nhất 30 ngày
+                                        trước khi hết hợp đồng.</li>
+                                    <li><strong>Sử dụng phòng:</strong> Bên B chỉ được sử dụng phòng đúng mục đích ở.
+                                        Không được dùng để kinh doanh, chứa hàng hóa cấm, hoặc các hoạt động vi phạm
+                                        pháp luật.</li>
+                                    <li><strong>Giữ gìn vệ sinh:</strong> Bên B có trách nhiệm giữ gìn vệ sinh chung,
+                                        không gây ồn ào ảnh hưởng đến các phòng xung quanh sau 23h00.</li>
+                                    <li><strong>Sửa chữa & Bảo dưỡng:</strong> Những hư hỏng do Bên B gây ra, Bên B phải
+                                        chịu chi phí sửa chữa. Những hư hỏng tự nhiên sẽ do Bên A chịu.</li>
+                                    <li><strong>Chấm dứt hợp đồng:</strong> Nếu một trong hai bên muốn chấm dứt hợp đồng
+                                        trước thời hạn, phải thông báo trước ít nhất 30 ngày bằng văn bản.</li>
+                                    <li><strong>An ninh:</strong> Bên B phải tuân thủ nội quy khu nhà trọ, đăng ký tạm
+                                        trú theo quy định, và phối hợp với Bên A trong các vấn đề an ninh.</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- Signature Area -->
+                        <div class="signature-area">
+                            <label class="checkbox-custom">
+                                <input type="checkbox" id="agreeTerms" onchange="toggleSignBtn()">
+                                <div>
+                                    <div class="font-semibold" style="font-size: 0.95rem;">Tôi đã đọc, hiểu rõ và đồng ý
+                                        với
+                                        tất cả các điều khoản trong hợp đồng trên.</div>
+                                    <div class="text-muted text-sm mt-1">Bằng việc tích chọn, bạn xác nhận đã xem xét kỹ
+                                        lưỡng nội dung hợp đồng và đồng ý ràng buộc pháp lý.</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Footer Actions -->
+                    <div class="contract-footer-actions">
+                        <div>
+                            <div class="text-muted text-sm">Tổng cần thanh toán (Cọc)</div>
+                            <div class="price-highlight" style="font-size: 1.5rem;">5.000.000đ</div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline">
+                                <i class="fas fa-download"></i> Tải PDF
+                            </button>
+                            <a href="payment-deposit.html" id="signBtn" class="btn-sign"
+                                style="pointer-events: none; opacity: 0.5; text-decoration: none;">
+                                <i class="fas fa-signature"></i> Ký Số & Thanh Toán Cọc
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" style="background-color: #1F2937; color: #9CA3AF; padding: 3rem 0; margin-top: auto;">
+        <div class="container text-center">
+            <p>&copy; 2026 RentNest.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        function toggleSignBtn() {
+            const checkbox = document.getElementById('agreeTerms');
+            const btn = document.getElementById('signBtn');
+            if (checkbox.checked) {
+                btn.style.pointerEvents = 'auto';
+                btn.style.opacity = '1';
+            } else {
+                btn.style.pointerEvents = 'none';
+                btn.style.opacity = '0.5';
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hóa Đơn & Thu Tiền - RentNest Admin</title>
+    <title>Hóa Đơn & Thu Tiền - RentNest Landlord</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/global.css">
@@ -16,7 +16,7 @@
     <div class="admin-layout">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <i class="fas fa-home text-primary"></i> RentNest Admin
+                <i class="fas fa-home text-primary"></i> RentNest Landlord
             </div>
             <nav class="sidebar-nav">
                 <div class="px-3 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tổng quan</div>
@@ -27,6 +27,11 @@
                 <a href="rooms.html" class="sidebar-link"><i class="fas fa-door-open"></i> Phòng & Giường</a>
                 <a href="tenants.html" class="sidebar-link"><i class="fas fa-users"></i> Khách Thuê</a>
                 <a href="contracts.html" class="sidebar-link"><i class="fas fa-file-signature"></i> Hợp Đồng</a>
+                <a href="rental-requests.html" class="sidebar-link">
+                    <i class="fas fa-inbox"></i> Yêu Cầu Thuê
+                    <span class="badge badge-danger text-white"
+                        style="margin-left: auto; font-size: 0.65rem; padding: 0.2em 0.5em;">3</span>
+                </a>
 
                 <div class="px-3 mt-4 mb-2 text-xs font-semibold text-muted text-uppercase tracking-wider">Tài chính
                 </div>
@@ -34,7 +39,6 @@
                 <a href="invoices.html" class="sidebar-link active"><i class="fas fa-file-invoice-dollar"></i> Hóa
                     Đơn</a>
                 <a href="reports.html" class="sidebar-link"><i class="fas fa-chart-bar"></i> Báo Cáo</a>
-                <!-- ... other links ... -->
             </nav>
         </aside>
 
